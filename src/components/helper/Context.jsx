@@ -1,4 +1,5 @@
-import { Children, createContext } from "react";
+'use client'
+import {  createContext, useState } from "react";
 
 
 export const Context=createContext()
@@ -6,8 +7,11 @@ export const Context=createContext()
 
 const ContextProvider=({children})=>{
 
-    const contextValue={
+    const [panelSidebar, setPanelSidebar]= useState(false)
+    
 
+    const contextValue={
+        panelSidebar, setPanelSidebar
     }
 
     return <Context.Provider value={contextValue}>

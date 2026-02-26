@@ -1,4 +1,5 @@
 
+import ContextProvider from "@/components/helper/Context";
 import "./globals.css";
 
 
@@ -8,9 +9,11 @@ export default function RootLayout({ children }) {
       <body
         className={`w-full overflow-x-hidden antialiased`}
       >
-        <main>
-          {children}
-        </main>
+        <ContextProvider>
+          <main>
+            {children}
+          </main>
+        </ContextProvider>
       </body>
     </html>
   );
