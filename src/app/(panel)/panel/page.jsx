@@ -4,6 +4,7 @@ const PanelHomePage = () => {
   return (
     <div>
       panel
+     
     </div>
   )
 }
