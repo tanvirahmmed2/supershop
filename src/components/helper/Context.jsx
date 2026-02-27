@@ -43,7 +43,7 @@ const ContextProvider=({children})=>{
 
     useEffect(()=>{
         fetchBrands()
-        fetchCategories
+        fetchCategories()
     },[])
     
 

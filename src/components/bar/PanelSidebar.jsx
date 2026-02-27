@@ -9,7 +9,7 @@ const PanelSidebar = () => {
 
   
   return (
-    <div className={`w-50 bg-white shadow-xl text-lg h-screen fixed top-14 left-0 flex flex-col gap-1 p-2 ${panelSidebar?'translate-x-0':'-translate-x-full'} ease-in-out transform duration-500`}>
+    <div className={`w-50 bg-white shadow-xl text-lg h-screen fixed z-50 top-14 left-0 flex flex-col gap-1 p-2 ${panelSidebar?'translate-x-0':'-translate-x-full'} ease-in-out transform duration-500`}>
       <Link href={'/panel'} onClick={() => setOption('')}>Home</Link>
       <div className='w-full flex flex-col gap-1'>
         <button onClick={() => setOption('sales')} className='cursor-pointer w-full text-left'>Sales</button>

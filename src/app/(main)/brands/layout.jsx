@@ -1,11 +1,11 @@
 import React from 'react'
 
 export const metadata={
-    title:'Category | Super Shop',
-    description:'Category Page of Super Shop'
+    title:'Brand | Super Shop',
+    description:'Brand Page of Super Shop'
 }
 
-const CategoryLayout = ({children}) => {
+const BrandLayout = ({children}) => {
   return (
     <div className='w-full overflow-x-hidden p-1 sm:p-4'>
       {children}
@@ -13,4 +13,4 @@ const CategoryLayout = ({children}) => {
   )
 }
 
-export default CategoryLayout
+export default BrandLayout
