@@ -9,7 +9,8 @@ const AddBranchForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     location: '',
-    map_url: ''
+    map_url: '',
+    phone: ''
   })
 
   const handleChange = (e) => {
@@ -20,14 +21,21 @@ const AddBranchForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const confirm=window.confirm('All information is correct?')
-    if(!confirm) return
+    const confirm = window.confirm('All information is correct?')
+    if (!confirm) return
     try {
       const res = await axios.post('/api/branch', formData, { withCredentials: true })
       toast.success(res.data.message)
-      if(fetchBranches){
+      if (fetchBranches) {
         fetchBranches()
       }
+      setFormData({
+        name: '',
+        location: '',
+        map_url: '',
+        phone: ''
+      })
+
     } catch (error) {
       console.log(error)
       toast.error(error?.response?.data?.message || 'Failed to creat branch')
@@ -37,7 +45,11 @@ const AddBranchForm = () => {
     <form onSubmit={handleSubmit} className='w-full flex flex-col items-center gap-4 max-w-3xl'>
       <div className='w-full flex flex-col gap-1'>
         <label htmlFor="name">Name</label>
-        <input type="text" name='name' id='name' required onChange={handleChange} value={formData.name}  className='w-full px-3 p-1 border border-black/10 outline-none'/>
+        <input type="text" name='name' id='name' required onChange={handleChange} value={formData.name} placeholder='Super Shop, Dhanmondi' className='w-full px-3 p-1 border border-black/10 outline-none' />
+      </div>
+      <div className='w-full flex flex-col gap-1'>
+        <label htmlFor="phone">Phone</label>
+        <input type="text" name='phone' id='phone' required onChange={handleChange} value={formData.phone} className='w-full px-3 p-1 border border-black/10 outline-none' />
       </div>
       <div className='w-full flex flex-col gap-1'>
         <label htmlFor="location">Location</label>

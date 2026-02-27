@@ -95,10 +95,10 @@ export async function DELETE(req) {
         
         await cloudinary.uploader.destroy(Category.image_id)
 
-        await pool.query(`DELETE * FROM categories WHERE category_id=$1`,[id])
+        await pool.query(`DELETE FROM categories WHERE category_id=$1`,[id])
 
         return NextResponse.json({
-            success:false, message:'Successfully deleted Category'
+            success:true, message:'Successfully deleted Category'
         },{status:200})
 
     } catch (error) {
