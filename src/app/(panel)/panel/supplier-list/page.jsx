@@ -12,6 +12,7 @@ const SupplierListPage = () => {
   }, [])
 
   
+  
   return (
     <div className='w-full flex flex-col items-center gap-4'>
       <h1 className='w-full text-2xl font-semibold border-b-2 p-2 '>Suppliers</h1>
