@@ -4,7 +4,7 @@ import { Context } from '../helper/Context'
 import Link from 'next/link'
 import { MdHome, MdInventory, MdSuperscript } from 'react-icons/md'
 import { IoBag, IoCartOutline } from 'react-icons/io5'
-import { RiAlignItemLeftLine, RiCustomerServiceLine, RiCustomSize } from 'react-icons/ri'
+import { RiAlignItemLeftLine, RiCustomerServiceLine, RiCustomSize, RiHome2Line, RiSettings3Line } from 'react-icons/ri'
 import { TbBrandBandcamp, TbCategory, TbGitBranch } from "react-icons/tb";
 import { CircleUser } from 'lucide-react'
 
@@ -101,6 +101,8 @@ const PanelSidebar = () => {
 
       <Link className='w-full hover:text-white hover:bg-orange-300 px-2 flex flex-row items-center gap-4' href={'/panel/customers'} onClick={() => setOption('')}><RiCustomSize/> Customers</Link>
       <Link className='w-full hover:text-white hover:bg-orange-300 px-2 flex flex-row items-center gap-4' href={'/panel/supports'} onClick={() => setOption('')}> <RiCustomerServiceLine/>Supports</Link>
+      <Link className='w-full hover:text-white hover:bg-orange-300 px-2 flex flex-row items-center gap-4' href={'/panel/settings'} onClick={() => setOption('')}> <RiSettings3Line/>Settings</Link>
+      <Link className='w-full hover:text-white hover:bg-orange-300 px-2 flex flex-row items-center gap-4' href={'/'} onClick={() => setOption('')}> <RiHome2Line/>Website</Link>
 
     </div>
   )

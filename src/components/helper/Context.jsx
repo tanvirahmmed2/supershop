@@ -14,6 +14,7 @@ const ContextProvider=({children})=>{
 
     const [brands, setBrands]= useState([])
     const [categories, setCategories]= useState([])
+    const [branches, setBranches]= useState([])
 
 
     // fetch data collections
@@ -38,19 +39,31 @@ const ContextProvider=({children})=>{
             
         }
     }
+   
+    const fetchBranches=async()=>{
+        try {
+            const res= await axios.get('/api/branch', {withCredentials:true})
+            setBranches(res.data.payload || [])
+        } catch (error) {
+            console.log(error)
+            setBranches([])
+            
+        }
+    }
 
     //call data collections
 
     useEffect(()=>{
         fetchBrands()
         fetchCategories()
+        fetchBranches()
     },[])
     
 
     const contextValue={
         panelSidebar, setPanelSidebar,
         brands,categories,
-        fetchBrands,fetchCategories
+        fetchBrands,fetchCategories, fetchBranches
 
     }
 
