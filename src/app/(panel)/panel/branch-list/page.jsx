@@ -1,7 +1,5 @@
 'use client'
-import CategoryCard from '@/components/card/CategoryCard'
 import { Context } from '@/components/helper/Context'
-import Image from 'next/image'
 import React, { useContext } from 'react'
 
 const CategoryListPage = () => {

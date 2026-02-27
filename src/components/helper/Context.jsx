@@ -15,6 +15,7 @@ const ContextProvider=({children})=>{
     const [brands, setBrands]= useState([])
     const [categories, setCategories]= useState([])
     const [branches, setBranches]= useState([])
+    const [suppliers, setSuppliers]= useState([])
 
 
     // fetch data collections
@@ -50,6 +51,16 @@ const ContextProvider=({children})=>{
             
         }
     }
+    const fetchSuppliers=async()=>{
+        try {
+            const res= await axios.get('/api/supplier', {withCredentials:true})
+            setSuppliers(res.data.payload || [])
+        } catch (error) {
+            console.log(error)
+            setSuppliers([])
+            
+        }
+    }
 
     //call data collections
 
@@ -62,8 +73,8 @@ const ContextProvider=({children})=>{
 
     const contextValue={
         panelSidebar, setPanelSidebar,
-        brands,categories,branches,
-        fetchBrands,fetchCategories, fetchBranches
+        brands,categories,branches,suppliers,
+        fetchBrands,fetchCategories, fetchBranches, fetchSuppliers
 
     }
 
