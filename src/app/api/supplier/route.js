@@ -1,6 +1,7 @@
 import { pool } from "@/lib/database/db";
 import { NextResponse } from "next/server";
-import slugify from "slugify";
+
+
 
 export async function GET() {
     try {
