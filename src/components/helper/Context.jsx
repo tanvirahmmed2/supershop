@@ -62,7 +62,7 @@ const ContextProvider=({children})=>{
 
     const contextValue={
         panelSidebar, setPanelSidebar,
-        brands,categories,
+        brands,categories,branches,
         fetchBrands,fetchCategories, fetchBranches
 
     }
