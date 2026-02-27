@@ -1,11 +1,91 @@
 'use client'
-import React from 'react'
+import axios from 'axios';
+import Image from 'next/image';
+import React, { useContext, useState } from 'react'
+import { toast } from 'react-toastify';
+import { Context } from '../helper/Context';
 
 const AddBrandForm = () => {
+  const { fetchBrands } = useContext(Context)
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    image: null
+  })
+
+  const [preview, setPreview] = useState('')
+
+  const handleChange = (e) => {
+    const { name, value, files, type } = e.target;
+
+    if (type === "file") {
+      const file = files[0];
+
+      if (!file) return;
+
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+
+      const newPreview = URL.createObjectURL(file);
+
+      setFormData((prev) => ({
+        ...prev,
+        image: file,
+      }));
+
+      setPreview(newPreview);
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const data = new FormData()
+      data.append('name', formData.name)
+      data.append('image', formData.image)
+      data.append('description', formData.description)
+      const res = await axios.post('/api/brand', data, { withCredentials: true })
+      toast.success(res.data.message)
+      if (fetchBrands) {
+        fetchBrands()
+      }
+      setFormData({
+        name: '',
+        description: '',
+        image: null
+      })
+
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "failed to add brand")
+      console.log(error)
+
+    }
+  }
+
   return (
-    <div>
-      
-    </div>
+    <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center gap-2'>
+      <div className='w-full flex flex-col gap-1'>
+        <label htmlFor="name">Name</label>
+        <input type="text" name='name' id='name' required onChange={handleChange} value={formData.name} className='w-full px-3 p-1 border border-black/20 outline-none' />
+      </div>
+      <div className='w-full flex flex-col gap-1'>
+        <label htmlFor="description">Description</label>
+        <textarea name="description" id="description" onChange={handleChange} required value={formData.description} className='w-full px-3 p-1 border border-black/20 outline-none'></textarea>
+      </div>
+      <div className='w-full flex flex-col gap-1'>
+        <label htmlFor="image">Logo</label>
+        <input type="file" name='image' id='image' required onChange={handleChange} accept='image/*' className='w-full px-3 p-1 border border-black/20 outline-none' />
+      </div>
+      {
+        formData.image !== null && <Image src={preview} alt='logo' width={100} height={100} />
+      }
+      <button type='submit' className='w-full text-center bg-black p-1 cursor-pointer hover:bg-gray-700 text-white'>Submit</button>
+    </form>
   )
 }
 
