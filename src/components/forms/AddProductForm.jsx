@@ -161,6 +161,10 @@ const AddProductForm = () => {
           <label htmlFor="dealer_price">Dealer Price</label>
           <input type="number" min={0} step={0.1} name='dealer_price' id='dealer_price' onChange={handleChange} value={formData.dealer_price} className='w-full px-3 p-1 border border-black/20 outline-none' />
         </div>
+        <div className='w-full flex flex-col gap-1'>
+          <label htmlFor="wholesale_price">Whole Sale Price</label>
+          <input type="number" min={0} step={0.1} name='wholesale_price' id='wholesale_price' onChange={handleChange} value={formData.wholesale_price} className='w-full px-3 p-1 border border-black/20 outline-none' />
+        </div>
       </div>
       <div className='w-full flex flex-col gap-1'>
         <label htmlFor="features">Features</label>
