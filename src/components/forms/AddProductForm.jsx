@@ -63,6 +63,21 @@ const AddProductForm = () => {
       })
       const res = await axios.post('/api/product', data, { withCredentials: true })
       toast.success(res.data.message)
+      setFormData({
+        name: '',
+        description: '',
+        barcode: '',
+        purchase_price: "",
+        sale_price: '',
+        discount_price: "",
+        retail_price: "",
+        wholesale_price: "",
+        dealer_price: '',
+        features: '',
+        brand_id: "",
+        category_id: '',
+        image: null
+      })
 
     } catch (error) {
       toast.error(error?.response?.data?.message || 'Failed to add product')

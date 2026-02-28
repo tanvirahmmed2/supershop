@@ -49,7 +49,7 @@ export async function POST(req) {
         const buffer = Buffer.from(await imageFile.arrayBuffer());
         const cloudImage = await new Promise((resolve, reject) => {
             const stream = cloudinary.uploader.upload_stream(
-                { folder: "categories" },
+                { folder: "ss-categories" },
                 (err, result) => { if (err) reject(err); else resolve(result); }
             );
             stream.end(buffer);
