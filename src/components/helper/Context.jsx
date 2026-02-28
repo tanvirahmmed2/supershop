@@ -7,8 +7,10 @@ export const Context=createContext()
 
 
 const ContextProvider=({children})=>{
-
+    //bar and box
     const [panelSidebar, setPanelSidebar]= useState(false)
+    const [categoryBox, setCategoryBox]= useState(false)
+    const [brandBox, setBrandBox]= useState(false)
 
     //data collections
 
@@ -72,7 +74,7 @@ const ContextProvider=({children})=>{
     
 
     const contextValue={
-        panelSidebar, setPanelSidebar,
+        panelSidebar, setPanelSidebar, categoryBox, setCategoryBox, brandBox, setBrandBox,
         brands,categories,branches,suppliers,
         fetchBrands,fetchCategories, fetchBranches, fetchSuppliers
 
