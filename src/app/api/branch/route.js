@@ -4,7 +4,7 @@ import slugify from "slugify";
 
 export async function GET() {
     try {
-        const data = await pool.query(`SELECT * FROM branches ORDER BY name ASC`)
+        const data = await pool.query(`SELECT * FROM branches ORDER BY location ASC`)
         if (data.rowCount === 0) {
             return NextResponse.json({
                 success: false, message: 'No data found'
@@ -34,7 +34,7 @@ export async function POST(req) {
 
         const slug = slugify(name, { strict: true, lower: true })
 
-        const existBranch = await pool.query(`SELECT * FROM branches WHERE slug=$1`, [slug])
+        const existBranch = await pool.query(`SELECT * FROM branches WHERE location=$1`, [location])
 
         if (existBranch.rowCount !== 0) {
             return NextResponse.json({

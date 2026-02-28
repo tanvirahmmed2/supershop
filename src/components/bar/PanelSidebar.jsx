@@ -14,7 +14,7 @@ const PanelSidebar = () => {
 
   
   return (
-    <div className={`w-50 bg-white shadow-xl text-lg h-screen fixed z-50 top-14 left-0 flex flex-col gap-4 p-2 ${panelSidebar?'translate-x-0':'-translate-x-full'} ease-in-out transform duration-500`}>
+    <div className={`w-50 bg-white shadow-xl overflow-y-scroll pb-8 text-lg h-screen fixed z-50 top-14 left-0 flex flex-col gap-4 p-2 ${panelSidebar?'translate-x-0':'-translate-x-full'} ease-in-out transform duration-500`}>
       <Link className='w-full hover:text-white hover:bg-orange-300 px-2 flex flex-row items-center gap-4' href={'/panel'} onClick={() => setOption('')}><MdHome/> Home</Link>
       <div className='w-full flex flex-col gap-2 px-2'>
         <button onClick={() => setOption('sales')} className='cursor-pointer w-full text-left hover:bg-orange-300 hover:text-white flex flex-row items-center gap-4'> <IoCartOutline/> Sales</button>
