@@ -1,4 +1,4 @@
-
+export const BASE_URL='http://localhost:3000'
 
 export const PG_PORT= process.env.PG_PORT
 export const PG_HOST=process.env.PG_HOST
