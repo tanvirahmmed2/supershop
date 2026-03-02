@@ -7,7 +7,7 @@ export const metadata={
 
 const ProductsLayout = ({children}) => {
   return (
-    <div className='w-full'>
+    <div className='w-full overflow-x-hidden'>
       {children}
     </div>
   )
