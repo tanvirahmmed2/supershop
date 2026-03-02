@@ -1,6 +1,7 @@
 import React from 'react'
 
-const ProductsPage = () => {
+const ProductsPage =  async() => {
+  const res= await fetch()
   return (
     <div>
       
