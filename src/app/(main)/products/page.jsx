@@ -1,13 +1,13 @@
-import { BASE_URL } from '@/lib/database/secret'
+
+'use client'
 import React from 'react'
 
-const ProductsPage =  async() => {
-  const res= await fetch(`${BASE_URL}/api/product`,{
-    method:'GET'
-  })
+const ProductsPage =  () => {
+ 
+
   return (
     <div>
-      
+
     </div>
   )
 }
