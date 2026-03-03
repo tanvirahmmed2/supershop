@@ -5,7 +5,7 @@ import slugify from "slugify";
 
 export async function GET(req) {
     try {
-        const { searchParams } = new URL(req.url); // Added 'new'
+        const { searchParams } = new URL(req.url); 
         const category_id = searchParams.get('category_id');
         const page = parseInt(searchParams.get('page')) || 1;
         const limit = 20;

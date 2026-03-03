@@ -22,7 +22,6 @@ const ProductsPage = () => {
           }
         })
         setProducts(res.data.payload)
-        // Fixed: Matching the key from your API (totalPage)
         setTotalPage(res.data.totalPage) 
       } catch (error) {
         console.log(error)

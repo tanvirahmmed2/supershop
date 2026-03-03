@@ -64,7 +64,7 @@ const AddStaffForm = () => {
           </select>
         </div>
         {
-          (formData.role === 'sales' || formData.role === 'branch-manager') && <div className='w-full flex flex-col gap-1'>
+          (formData.role !== 'manager') && <div className='w-full flex flex-col gap-1'>
             <label htmlFor="branch_id">Branch</label>
             <select id='branch_id' name='branch_id' value={formData.branch_id} onChange={handleChange} required className='w-full px-3 p-1 border border-black/20 outline-none'>
               <option value="">Select</option>
