@@ -7,7 +7,7 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 const Item = ({ product }) => {
     return (
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }} className='w-full border cursor-pointer border-black/10 hover:shadow-lg shadow group transition ease-in-out duration-500 relative'>
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.7 }} className='w-full border cursor-pointer border-black/10 hover:shadow-lg shadow group overflow-hidden transition ease-in-out duration-500 relative'>
             <Link href={`/products/${product.slug}`} className='w-full flex items-center gap-1 flex-col p-2  relative '>
                 <div className='w-full overflow-hidden'>
                     <Image src={product.image} alt='product image' width={300} height={300} className='w-full group-hover:scale-105 transition ease-in-out duration-500 aspect-square object-cover overflow-hidden ' />
@@ -17,7 +17,8 @@ const Item = ({ product }) => {
                 <strong>BDT {product.sale_price - product.discount_price}</strong>
 
             </Link>
-            <button onClick={() => alert(product.product_id)} className='sm:hidden opacity-50 sm:opacity-100 group-hover:block transition ease-in-out duration-300 absolute top-4 right-4 bg-orange-400 text-white text-2xl p-2 rounded-full cursor-pointer'><MdOutlineAddShoppingCart /></button>
+           
+            <button onClick={() => alert(product.product_id)} className='w-full absolute z-10 bottom-0 p-1 transition ease-in-out duration-500 bg-orange-400 text-white transform group-hover:translate-y-0 translate-y-full'>Add to cart</button>
         </motion.div>
     )
 }

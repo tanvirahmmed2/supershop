@@ -119,7 +119,7 @@ const AddProductForm = () => {
             <label htmlFor="brand">Brand</label>
             <button type='button' className='bg-black text-white px-2 text-xl cursor-pointer' onClick={() => setBrandBox(true)}>+</button>
           </div>
-          <select name="brand_id" required onChange={handleChange} value={formData.brand_id} id="brand_id" className='w-full px-3 p-1 border border-black/20 outline-none'>
+          <select name="brand_id" onChange={handleChange} value={formData.brand_id} id="brand_id" className='w-full px-3 p-1 border border-black/20 outline-none'>
             <option value="">Select</option>
             {
               brands.length > 0 && brands.map((brand) => (
