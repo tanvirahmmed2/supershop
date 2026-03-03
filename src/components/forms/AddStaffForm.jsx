@@ -32,7 +32,7 @@ const AddStaffForm = () => {
         branch_id: '',
         role: '',
         phone: '',
-
+        password:''
       })
     } catch (error) {
       console.log(error)
@@ -44,7 +44,11 @@ const AddStaffForm = () => {
     <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center gap-4'>
       <div>
         <label htmlFor="name">Name</label>
-        <input type="text" name='name' id='name' required onChange={handleChange} />
+        <input type="text" name='name' id='name' required onChange={handleChange} value={formData.name}/>
+      </div>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input type="email" name='email' id='email' onChange={handleChange} required value={formData.email} />
       </div>
     </form>
   )
