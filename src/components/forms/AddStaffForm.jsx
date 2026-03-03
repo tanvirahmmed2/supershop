@@ -14,7 +14,7 @@ const AddStaffForm = () => {
     branch_id: '',
     role: '',
     phone: '',
-
+    password: ''
   })
 
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ const AddStaffForm = () => {
         branch_id: '',
         role: '',
         phone: '',
-        password:''
+        password: ''
       })
     } catch (error) {
       console.log(error)
@@ -42,46 +42,52 @@ const AddStaffForm = () => {
   }
   return (
     <form onSubmit={handleSubmit} className='w-full max-w-3xl flex flex-col items-center gap-4'>
-      <div>
+      <div className='w-full flex flex-col gap-1'>
         <label htmlFor="name">Name</label>
-        <input type="text" name='name' id='name' required onChange={handleChange} value={formData.name}/>
+        <input type="text" name='name' id='name' required onChange={handleChange} value={formData.name} className='w-full px-3 p-1 border border-black/20 outline-none' />
       </div>
-      <div>
+      <div className='w-full flex flex-col gap-1'>
         <label htmlFor="email">Email</label>
-        <input type="email" name='email' id='email' onChange={handleChange} required value={formData.email} />
+        <input type="email" name='email' id='email' onChange={handleChange} required value={formData.email} className='w-full px-3 p-1 border border-black/20 outline-none' />
       </div>
-      <div>
-        <div>
-          <label htmlFor="branch_id">Branch</label>
-          <select id='branch_id' name='branch_id' value={formData.branch_id} onChange={handleChange} required >
-            <option value="">Select</option>
-            {
-              branches.length>0 && branches.map((branch)=>(
-                <option value={branch.branch_id} key={branch.branch_id} >{branch.name}</option>
-              ))
-            }
-          </select>
-        </div>
-        <div>
+      <div className='w-full flex flex-col md:flex-row items-center justify-center gap-3'>
+
+        <div className='w-full flex flex-col gap-1'>
           <label htmlFor="role">Role</label>
-          <select name="role" id="role" required value={formData.role} onChange={handleChange}>
+          <select name="role" id="role" required value={formData.role} onChange={handleChange} className='w-full uppercase px-3 p-1 border border-black/20 outline-none'>
             <option value="">Select</option>
             {
-              roles.length>0 && roles.map((role)=>(
-                <option value={role} key={role}>{role}</option>
+              roles.length > 0 && roles.map((role) => (
+                <option value={role} key={role} >{role}</option>
               ))
             }
           </select>
         </div>
+        {
+          (formData.role === 'sales' || formData.role === 'branch-manager') && <div className='w-full flex flex-col gap-1'>
+            <label htmlFor="branch_id">Branch</label>
+            <select id='branch_id' name='branch_id' value={formData.branch_id} onChange={handleChange} required className='w-full px-3 p-1 border border-black/20 outline-none'>
+              <option value="">Select</option>
+              {
+                branches.length > 0 && branches.map((branch) => (
+                  <option value={branch.branch_id} key={branch.branch_id} >{branch.name}</option>
+                ))
+              }
+            </select>
+          </div>
+        }
+
+
       </div>
-      <div>
+      <div className='w-full flex flex-col gap-1'>
         <label htmlFor="phone">Phone</label>
-        <input type="text" name='phone' id='phone' required onChange={handleChange} value={formData.phone}/>
+        <input type="text" name='phone' id='phone' required onChange={handleChange} value={formData.phone} className='w-full px-3 p-1 border border-black/20 outline-none' />
       </div>
-      <div>
+      <div className='w-full flex flex-col gap-1'>
         <label htmlFor="password">Password</label>
-        <input type="text" name="password" id="pass" />
+        <input type="text" name="password" id="password" onChange={handleChange} required value={formData.password} className='w-full px-3 p-1 border border-black/20 outline-none' />
       </div>
+      <button type='submit' className='w-full p-1 bg-black text-white hover:bg-gray-700 cursor-pointer'>Submit</button>
     </form>
   )
 }
