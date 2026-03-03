@@ -75,7 +75,8 @@ const AddStaffForm = () => {
         </div>
       </div>
       <div>
-        <label htmlFor=""></label>
+        <label htmlFor="phone">Phone</label>
+        <input type="text" name='phone' />
       </div>
     </form>
   )
