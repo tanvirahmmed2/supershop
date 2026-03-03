@@ -85,3 +85,35 @@ export async function POST(req) {
 
     }
 }
+
+export async function DELETE(req) {
+    try {
+        const {id}= await req.json()
+        if(!id){
+            return NextResponse.json({
+                success:false, message:'product id not recieved'
+            },{status:400})
+        }
+        const data= await pool.query(`SELECT * FROM product WHERE product_id=$1`,[id])
+        if(data.rowCount===0){
+            return NextResponse.json({
+                success:false, message:'No product found with this id'
+            },{status:400})
+        }
+
+        const product= data.rows[0]
+
+        await cloudinary.uploader.destroy(product.image_id)
+        await pool.query(`DELETE FROM product WHERE product_id=$1`,[id])
+
+        return NextResponse.json({
+            success:true, message:'Succesfully deleted product'
+        },{status:200})
+    } catch (error) {
+        return NextResponse.json({
+            success:false , message:error.message
+        },{status:500})
+        
+    }
+    
+}
