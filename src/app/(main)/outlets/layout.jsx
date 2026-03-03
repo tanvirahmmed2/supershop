@@ -7,7 +7,7 @@ export const metadata={
 
 const OutletsLayout = ({children}) => {
   return (
-    <div className='w-full'>
+    <div className='w-full overflow-x-hidden  h-screen'>
       {children}
     </div>
   )
