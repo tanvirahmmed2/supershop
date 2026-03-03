@@ -1,5 +1,6 @@
 
 'use client'
+import Item from '@/components/card/Item'
 import { Context } from '@/components/helper/Context'
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
@@ -35,18 +36,35 @@ const ProductsPage = () => {
     setCategory(e.target.value)
     setPage(1)
   }
-console.log(categories)
+  console.log(page)
   return (
     <div className='w-full flex flex-col items-center gap-4 p-1 sm:p-4'>
       <select name="category" id="category" onChange={handleCategoryChange} value={category} className='w-full bg-white border border-black/20 cursor-pointer text-black outline-none p-1 text-center'>
         <option value="">select</option>
         {
-          categories.length>0 && categories.map((cat)=>(
+          categories.length > 0 && categories.map((cat) => (
             <option value={cat.category_id} key={cat.category_id} className='text-black'>{cat.name}</option>
           ))
         }
       </select>
+      {
+        products.length > 0 ? <div className='w-full flex flex-col items-center gap-6'>
+          <div className='w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4'>
+            {
+              products.map((product) => (
+                <Item key={product.product_id} product={product} />
+              ))
+            }
+          </div>
+          <div className='w-full flex flex-row items-center justify-center gap-2'>
+            <button disabled={page===1} onClick={()=>setPage(page-1)} className='px-4 cursor-pointer bg-orange-400 text-white rounded-2xl p-1'>Prev</button>
 
+            <button onClick={()=>setPage(page+1)} className='px-4 cursor-pointer bg-orange-400 text-white rounded-2xl p-1'>Next</button>
+
+          </div>
+
+        </div> : <p>No data found</p>
+      }
     </div>
   )
 }
