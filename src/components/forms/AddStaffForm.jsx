@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 const AddStaffForm = () => {
   const { branches } = useContext(Context)
 
-  const reles = ['manager', 'branch-manager', 'sales', 'stock-manager']
+  const roles = ['manager', 'branch-manager', 'sales', 'inventory-manager']
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -49,6 +49,33 @@ const AddStaffForm = () => {
       <div>
         <label htmlFor="email">Email</label>
         <input type="email" name='email' id='email' onChange={handleChange} required value={formData.email} />
+      </div>
+      <div>
+        <div>
+          <label htmlFor="branch_id">Branch</label>
+          <select id='branch_id' name='branch_id' value={formData.branch_id} onChange={handleChange} required >
+            <option value="">Select</option>
+            {
+              branches.length>0 && branches.map((branch)=>(
+                <option value={branch.branch_id} key={branch.branch_id} >{branch.name}</option>
+              ))
+            }
+          </select>
+        </div>
+        <div>
+          <label htmlFor="role">Role</label>
+          <select name="role" id="role" required value={formData.role} onChange={handleChange}>
+            <option value="">Select</option>
+            {
+              roles.length>0 && roles.map((role)=>(
+                <option value={role} key={role}>{role}</option>
+              ))
+            }
+          </select>
+        </div>
+      </div>
+      <div>
+        <label htmlFor=""></label>
       </div>
     </form>
   )
