@@ -76,7 +76,7 @@ const AddStaffForm = () => {
       </div>
       <div>
         <label htmlFor="phone">Phone</label>
-        <input type="text" name='phone' id='phone' required onChange={handleChange}/>
+        <input type="text" name='phone' id='phone' required onChange={handleChange} value={formData.phone}/>
       </div>
     </form>
   )
