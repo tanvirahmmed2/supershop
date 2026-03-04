@@ -19,7 +19,7 @@ const Categories = async () => {
       <h1 className='w-full text-2xl font-semibold border-b-2 p-2 '>Categories</h1>
       <h1 className='w-full  font-semibold border-b-2 border-black/10 text-right'>({categories.length})</h1>
       {
-        categories.length > 0 && <div className='w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'>
+        categories.length > 0 && <div className='w-full grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-9'>
           {
             categories.map((cat) => (
               <CategoryCard key={cat.category_id} category={cat} />

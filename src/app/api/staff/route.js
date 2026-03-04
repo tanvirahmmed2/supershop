@@ -68,3 +68,15 @@ export async function DELETE(req) {
     }
 
 }
+
+export async function POST(req) {
+    try {
+        
+    } catch (error) {
+        return NextResponse.json({
+            success:
+        })
+        
+    }
+    
+}

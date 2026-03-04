@@ -18,7 +18,7 @@ const Brands = async() => {
       <h1 className='w-full text-2xl font-semibold border-b-2 p-2 '>Brands</h1>
       <h1 className='w-full  font-semibold border-b-2 border-black/10 text-right'>({brands.length})</h1>
       {
-        brands.length > 0 && <div className='w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8'>
+        brands.length > 0 && <div className='w-full grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10'>
           {
             brands.map((brand) => (
               <BrandCard key={brand.brand_id} brand={brand} />

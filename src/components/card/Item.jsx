@@ -17,7 +17,7 @@ const Item = ({ product }) => {
                 <strong>BDT {product.sale_price - product.discount_price}</strong>
 
             </Link>
-           
+           {product.discount_price>0 && <p className='bg-orange-400 text-white px-2 rounded-2xl absolute z-10 top-2 right-2 text-xs uppercase'>Save BDT {product.discount_price.split('.')[0]}</p>}
             <button onClick={() => alert(product.product_id)} className='w-full sm:absolute z-10 bottom-0 sm:p-1 transition ease-in-out duration-500 bg-orange-400 text-white transform group-hover:translate-y-0 translate-y-0 sm:translate-y-full'>Add to cart</button>
             
         </motion.div>
