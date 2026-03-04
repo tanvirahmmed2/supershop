@@ -38,7 +38,7 @@ const ProductsPage = () => {
   }
 
   return (
-    <div className='w-full flex flex-col items-center gap-4 p-1 sm:p-4'>
+    <div className='w-full flex flex-col items-center gap-4 p-1 min-h-screen sm:p-4'>
       <select name="category" id="category" onChange={handleCategoryChange} value={category} className='w-full bg-white border border-black/20 cursor-pointer text-black outline-none p-1 text-center'>
         <option value="">select</option>
         {
