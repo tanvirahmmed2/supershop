@@ -10,3 +10,8 @@ export const PG_PASSWORD= process.env.PG_PASSWORD
 export const CLOUDINARY_NAME=process.env.CLOUDINARY_NAME
 export const CLOUDINARY_API=process.env.CLOUDINARY_API
 export const CLOUDINARY_API_SECRET=process.env.CLOUDINARY_API_SECRET
+
+
+export const BREVO_SENDER_EMAIL=process.env.BREVO_SENDER_EMAIL
+export const BREVO_SENDER_NAME=process.env.BREVO_SENDER_NAME
+export const BREVO_API_KEY=process.env.BREVO_API_KEY

@@ -22,7 +22,8 @@ const AddStaffForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     try {
       const res = await axios.post('/api/staff', formData, { withCredentials: true })
       toast.success(res.data.message)
