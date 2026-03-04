@@ -1,5 +1,8 @@
 export const BASE_URL='http://localhost:3000'
 
+export const JWT_SECRET= process.env.JWT_SECRET
+export const NODE_ENV= process.env.NODE_ENV
+
 export const PG_PORT= process.env.PG_PORT
 export const PG_HOST=process.env.PG_HOST
 export const PG_DATABASE=process.env.PG_DATABASE
