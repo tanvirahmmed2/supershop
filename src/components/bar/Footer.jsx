@@ -5,7 +5,7 @@ import { CiFacebook, CiInstagram, CiMail } from 'react-icons/ci'
 
 const Footer = () => {
   return (
-    <div className='w-full flex flex-col items-center gap-4 bg-blue-900 text-white p-4 mt-4'>
+    <div className='w-full flex flex-col items-center gap-4 bg-sky-900 text-white p-4 mt-4'>
       <div className='w-full grid grid-cols-2 md:grid-cols-4 justify-items-center gap-4'>
         <div className='w-full flex flex-col items-center justify-center gap-1'>
           <h1 className='text-2xl font-semibold'>Super Shop LTD</h1>
