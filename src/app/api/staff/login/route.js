@@ -44,7 +44,7 @@ export async function POST(req) {
             success:true, message:'Successfully logged in'
         },{status:200})
 
-        res.cookies.set('supershop', token,{
+        res.cookies.set('supershop_staff', token,{
             httpOnly:true,
             secure:NODE_ENV,
             sameSite:'lax',
@@ -70,7 +70,7 @@ export async function GET() {
             success:true, message:'Logout successfully'
         },{status:200})
         
-        res.cookies.set('supershop','',{
+        res.cookies.set('supershop_staff','',{
             httpOnly:true, expires: new Date(0), path:'/'
         })
 
