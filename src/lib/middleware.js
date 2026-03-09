@@ -55,3 +55,58 @@ export const isManager = async () => {
         payload: auth.payload
     };
 }
+
+export const isBranchManager = async () => {
+    const auth = await isStaff();
+    
+    if (!auth.success) {
+        return auth; 
+    }
+
+    if (auth.payload.role !== 'branch-manager') {
+        return { success: false, message: 'Access denied:Branch  Managers only' };
+    }
+
+    return {
+        success: true, 
+        message: 'Branch Manager verification successful', 
+        payload: auth.payload
+    };
+}
+
+export const isInventoryManager = async () => {
+    const auth = await isStaff();
+    
+    if (!auth.success) {
+        return auth; 
+    }
+
+    if (auth.payload.role !== 'inventory-manager') {
+        return { success: false, message: 'Access denied: Inventory Managers only' };
+    }
+
+    return {
+        success: true, 
+        message: 'Inventory Manager verification successful', 
+        payload: auth.payload
+    };
+}
+
+
+export const isISales = async () => {
+    const auth = await isStaff();
+    
+    if (!auth.success) {
+        return auth; 
+    }
+
+    if (auth.payload.role !== 'sales') {
+        return { success: false, message: 'Access denied: Sales only' };
+    }
+
+    return {
+        success: true, 
+        message: 'Sales verification successful', 
+        payload: auth.payload
+    };
+}
