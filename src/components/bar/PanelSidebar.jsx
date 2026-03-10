@@ -121,9 +121,9 @@ const PanelSidebar = () => {
 
 
       <div className='mt-auto p-4'>
-        <Link className="group w-full px-4 py-3 rounded-xl flex flex-row items-center gap-4 transition-all bg-slate-900 text-white hover:bg-orange-600 shadow-lg shadow-slate-200" href={'/'} onClick={() => setOption('')}>
-          <RiHome2Line className='text-xl' /> <span className='font-bold'>Exit to Website</span>
-        </Link>
+        <Link className={linkStyle} href={'/'} onClick={() => setOption('')}>
+        <MdHome className={iconStyle} /> <span>Exit to Website</span>
+      </Link>
       </div>
     </div>
   )

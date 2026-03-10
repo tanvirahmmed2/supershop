@@ -75,8 +75,16 @@ export async function GET() {
         }
         const data=auth.payload
 
+        const staffData= await pool.query('SELECT s.name, s.role, s.staff_id,s.email,b.location AS branch_location, b.name AS branch_name, b.branch_id AS branch_id FROM staffs s LEFT JOIN branches b ON s.branch_id = b.branch_id WHERE staff_id=$1',[data.staff_id])
+        if(staffData.rowCount===0){
+            return NextResponse.json({
+                success:false, message:'Info not found'
+            })
+        }
+        const payload=staffData.rows[0]
+
         return NextResponse.json({
-            success:true, message:'Login verified',payload:data
+            success:true, message:'Login verified',payload:payload
         })
     } catch (error) {
         return NextResponse.json({

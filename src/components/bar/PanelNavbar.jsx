@@ -34,7 +34,7 @@ const PanelNavbar = () => {
 
 
   return (
-    <div className='w-full h-14 fixed z-50 top-0 left-0 border-b-2 border-black/10 bg-white flex items-center justify-between px-4'>
+    <div className='w-full text-xs md:text-base h-14 fixed z-50 top-0 left-0 border-b-2 border-black/10 bg-white flex items-center justify-between px-4'>
       <div className='w-auto flex flex-row items-center justify-center gap-10'>
         <button className='text-2xl font-semibold cursor-pointer' onClick={() => setPanelSidebar(!panelSidebar)}>{panelSidebar ? <TbMenu3 /> : <TbMenu2 />}</button>
         <Link className='text-xl font-semibold' href={'/panel'}>Panel</Link>
@@ -42,7 +42,7 @@ const PanelNavbar = () => {
       <div className='w-auto flex flex-row items-center justify-center gap-4'>
         <p>Welcome, {staff?.name}</p>
         <button onClick={handleLogout} className='h-14 px-3 bg-gray-200 cursor-pointer'>Logout</button>
-        <p>{currentTime}</p>
+        <p className='hidden sm:block'>{currentTime}</p>
       </div>
     </div>
   )

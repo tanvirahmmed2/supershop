@@ -11,38 +11,45 @@ export async function GET(req) {
         const limit = 20;
         const offset = (page - 1) * limit;
 
-        let query = `SELECT * FROM products`;
-        let countQuery = `SELECT COUNT(*) FROM products`; // Fixed typo 'SLECT'
+        let query = `
+            SELECT 
+                p.*, 
+                COALESCE(SUM(i.stock), 0) as total_stock
+            FROM public.products p
+            LEFT JOIN public.inventory i ON p.product_id = i.product_id
+        `;
+        
+        let countQuery = `SELECT COUNT(*) FROM public.products`; 
         let values = [];
 
         if (category_id && category_id !== '') {
-            query += ` WHERE category_id = $1`; // Added space before WHERE
+            query += ` WHERE p.category_id = $1`; 
             countQuery += ` WHERE category_id = $1`;
             values.push(category_id);
         }
+
+        // Grouping is required when using SUM()
+        query += ` GROUP BY p.product_id`;
 
         const totalRes = await pool.query(countQuery, values);
         const totalItems = parseInt(totalRes.rows[0].count);
         const totalPages = Math.ceil(totalItems / limit) || 1;
 
-        // Correct parameter indexing for LIMIT and OFFSET
-        query += ` ORDER BY name ASC LIMIT $${values.length + 1} OFFSET $${values.length + 2}`;
+        query += ` ORDER BY p.name ASC LIMIT $${values.length + 1} OFFSET $${values.length + 2}`;
         
-        // Construct the final array for the query
         const finalValues = [...values, limit, offset];
-
         const data = await pool.query(query, finalValues);
       
         if (data.rowCount === 0) {
             return NextResponse.json({
                 success: false, 
                 message: 'No products found'
-            }, { status: 404 }); // 404 is more appropriate for 'not found'
+            }, { status: 404 });
         }
 
         return NextResponse.json({
             success: true, 
-            message: "Successfully fetched data", 
+            message: "Successfully fetched products with total stock", 
             payload: data.rows, 
             totalPage: totalPages,
             currentPage: page
@@ -55,7 +62,6 @@ export async function GET(req) {
         }, { status: 500 });
     }
 }
-
 
 export async function POST(req) {
     try {
