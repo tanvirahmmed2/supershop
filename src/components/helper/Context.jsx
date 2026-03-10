@@ -19,6 +19,34 @@ const ContextProvider=({children})=>{
     const [branches, setBranches]= useState([])
     const [suppliers, setSuppliers]= useState([])
 
+    const [staff, setStaff]= useState(null)
+    const [user, setUser]= useState(null)
+
+    useEffect(()=>{
+        const fetchStaff=async()=>{
+            try {
+                const res= await axios.get('/api/staff/login', {withCredentials:true})
+                setStaff(res.data.payload)
+            } catch (error) {
+                setStaff(null)
+                
+            }
+        }
+        fetchStaff()
+    },[])
+
+    useEffect(()=>{
+        const fetchUser=async()=>{
+            try {
+                const res= await axios.get('/api/user/login', {withCredentials:true})
+                setUser(res.data.payload)
+            } catch (error) {
+                setUser(null)
+                
+            }
+        }
+        fetchUser()
+    },[])
 
     // fetch data collections
 
@@ -75,7 +103,7 @@ const ContextProvider=({children})=>{
 
     const contextValue={
         panelSidebar, setPanelSidebar, categoryBox, setCategoryBox, brandBox, setBrandBox,
-        brands,categories,branches,suppliers,
+        brands,categories,branches,suppliers, staff, user,
         fetchBrands,fetchCategories, fetchBranches, fetchSuppliers
 
     }

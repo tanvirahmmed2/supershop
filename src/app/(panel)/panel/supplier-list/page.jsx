@@ -20,9 +20,10 @@ const SupplierListPage = () => {
       {
         suppliers.length > 0 ? <div className='w-full flex flex-col items-center gap-1'>
           {
-            suppliers.map((Supplier) => (
-              <div key={Supplier.Supplier_id} className='w-full grid grid-cols-3 even:bg-gray-300'>
-                <p>{Supplier.name}</p>
+            suppliers.map((supplier) => (
+              <div key={supplier.supplier_id} className='w-full grid grid-cols-3 even:bg-gray-300'>
+                <p>{supplier.name}</p>
+                <p>{supplier.email}</p>
                 <button>Action</button>
               </div>
             ))

@@ -53,7 +53,7 @@ const AddSupplierForm = () => {
       </div>
       <div className='w-full flex flex-col gap-1'>
         <label htmlFor="address">address</label>
-        <input type="text" id='address' name='address' required onChange={handleChange} value={formData.address} className='w-full px-3 p-1 border border-black/10 outline-none' />
+        <input type="text" id='address' name='address'  onChange={handleChange} value={formData.address} className='w-full px-3 p-1 border border-black/10 outline-none' />
       </div>
       <div className='w-full flex flex-col gap-1'>
         <label htmlFor="company_tin">Company Tin</label>
