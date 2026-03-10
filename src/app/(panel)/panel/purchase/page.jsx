@@ -7,7 +7,7 @@ import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 
 const NewPurchase = () => {
-  const {addToPurchase, supplierBox, setSupplierBox, fetchSuppliers}= useContext(Context)
+  const {addToPurchase, supplierBox, setSupplierBox, fetchSuppliers ,clearPurchase}= useContext(Context)
   const [products, setProducts] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -29,6 +29,7 @@ const NewPurchase = () => {
       <div className='w-full flex flex-col items-center gap-4'>
         <h1 className='w-full text-center text-2xl font-semibold'>New Purchase</h1>
         <PurchaseForm />
+        <button onClick={()=> clearPurchase()} className='px-4 bg-black text-white cursor-pointer rounded-2xl'>Clear</button>
       </div>
       <div className='w-full flex flex-col items-center gap-4'>
         <div className=' w-full flex flex-row items-center justify-between border-b pb-4'>

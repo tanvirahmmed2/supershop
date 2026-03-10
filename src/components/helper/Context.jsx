@@ -342,7 +342,7 @@ const ContextProvider = ({ children }) => {
         panelSidebar, setPanelSidebar, categoryBox, setCategoryBox, brandBox, setBrandBox,supplierBox, setSupplierBox,
         brands, categories, branches, suppliers, staff, user,
         fetchBrands, fetchCategories, fetchBranches, fetchSuppliers,
-        cart, addToCart, removeFromCart, clearCart, decreaseCartQuantity, sales, addToSales, removeFromSales, decreaseSalesQuantity, removeFromSales,clearSales, purchase, addToPurchase, removeFromPurchase, decreasePurchaseQuantity, clearPurchase
+        cart, addToCart, removeFromCart, clearCart, decreaseCartQuantity, sales, addToSales, removeFromSales, decreaseSalesQuantity, removeFromSales,clearSales, purchase,setPurchase, addToPurchase, removeFromPurchase, decreasePurchaseQuantity, clearPurchase
     }
 
     return <Context.Provider value={contextValue}>
