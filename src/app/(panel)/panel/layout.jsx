@@ -1,5 +1,7 @@
 import PanelNavbar from '@/components/bar/PanelNavbar'
 import PanelSidebar from '@/components/bar/PanelSidebar'
+import { isStaff } from '@/lib/middleware'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 export const metadata = {
@@ -7,8 +9,9 @@ export const metadata = {
     description: 'Panel Site of Super Shop'
 }
 
-const PanelMainLayout = ({ children }) => {
-    
+const PanelMainLayout =async ({ children }) => {
+    const auth= await isStaff()
+    if(!auth.success) return redirect('/staff-login')
     return (
         <div className='w-full overflow-x-hidden relative pt-14'>
             <PanelNavbar />
