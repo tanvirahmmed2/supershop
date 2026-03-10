@@ -1,3 +1,5 @@
+import { isManager } from '@/lib/middleware'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 export const metadata={
@@ -5,7 +7,9 @@ export const metadata={
     description:'New Staff add page in Super shop'
 }
 
-const NewStaffLayout = ({children}) => {
+const NewStaffLayout = async({children}) => {
+   const auth= await isManager()
+    if(!auth.success) return redirect('/panel')
   return (
     <div className='w-full overflow-x-hidden p-1 sm:p-4'>
       {children}
