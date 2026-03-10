@@ -14,7 +14,7 @@ export async function GET() {
                 success:false, message:'Unverified request'
             })
         }
-        const data = await pool.query('SELECT * FROM staffs ORDER BY branch_id DESC')
+        const data = await pool.query('SELECT s.name, s.email, b.name as branch_name, s.role, b.branch_id FROM staffs s LEFT JOIN branches b ON s.branch_id = b.branch_id ORDER BY b.branch_id DESC')
         if (data.rowCount === 0) {
             return NextResponse.json({
                 success: false, message: "No staff found"
