@@ -4,13 +4,13 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 export const metadata={
-    title:'User Login | Super Shop',
-    description:'User Login Page of Super Shop'
+    title:'Profile | Super Shop',
+    description:'Profile Page of Super Shop'
 }
 
-const UserLoginLayout = async({children}) => {
+const UserProfileLayout = async({children}) => {
   const auth= await isUserLogin()
-  if(auth.success) return redirect('/profile')
+  if(!auth.success) return redirect('/user-login')
   return (
     <div className='w-full'>
       {children}
@@ -18,4 +18,4 @@ const UserLoginLayout = async({children}) => {
   )
 }
 
-export default UserLoginLayout
+export default UserProfileLayout
