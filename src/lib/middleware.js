@@ -63,7 +63,7 @@ export const isBranchManager = async () => {
         return auth; 
     }
 
-    if (auth.payload.role !== 'branch-manager') {
+    if (auth.payload.role !== 'branch_manager') {
         return { success: false, message: 'Access denied:Branch  Managers only' };
     }
 
@@ -81,7 +81,7 @@ export const isInventoryManager = async () => {
         return auth; 
     }
 
-    if (auth.payload.role !== 'inventory-manager') {
+    if (auth.payload.role !== 'inventory_manager') {
         return { success: false, message: 'Access denied: Inventory Managers only' };
     }
 

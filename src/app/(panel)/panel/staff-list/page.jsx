@@ -1,17 +1,23 @@
 'use client'
-import { Context } from '@/components/helper/Context'
-import React, { useContext } from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 
 const CategoryListPage = () => {
-  const { branches } = useContext(Context)
-
-
+  const [staffs, setStaffs]=useState([])
+  const fetchStaff=async()=>{
+    try {
+      const res= await axios.get('/api/staff', {withCredentials:true})
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
   return (
     <div className='w-full flex flex-col items-center gap-4'>
       <h1 className='w-full text-2xl font-semibold border-b-2 p-2 '>Branches</h1>
-      <h1 className='w-full  font-semibold border-b-2 border-black/10 text-right'>({branches.length})</h1>
+      <h1 className='w-full  font-semibold border-b-2 border-black/10 text-right'>({staffs.length})</h1>
       {
-        branches.length > 0 ? <div className='w-full flex flex-col items-center gap-1'>
+        staffs.length > 0 ? <div className='w-full flex flex-col items-center gap-1'>
           <div className='w-full grid grid-cols-4 py-4'>
             <p>Name</p>
             <p>Location</p>

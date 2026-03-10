@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 const AddStaffForm = () => {
   const { branches } = useContext(Context)
 
-  const roles = ['manager', 'branch-manager', 'sales', 'inventory-manager']
+  const roles = ['manager', 'branch_manager', 'sales', 'inventory_manager']
   const [formData, setFormData] = useState({
     name: '',
     email: '',
