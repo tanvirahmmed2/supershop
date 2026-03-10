@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET, NODE_ENV } from "@/lib/database/secret";
+import { isStaff } from "@/lib/middleware";
 
 
 export async function POST(req) {
@@ -66,15 +67,17 @@ export async function POST(req) {
 
 export async function GET() {
     try {
-        const res= NextResponse.json({
-            success:true, message:'Logout successfully'
-        },{status:200})
-        
-        res.cookies.set('supershop_staff','',{
-            httpOnly:true, expires: new Date(0), path:'/'
-        })
+        const auth=await isStaff()
+        if(!auth.success){
+            return NextResponse.json({
+                success:false, message:auth.message
+            },{status:400})
+        }
+        const data=auth.payload
 
-        return res
+        return NextResponse.json({
+            success:true, message:'Login verified',payload:data
+        })
     } catch (error) {
         return NextResponse.json({
             success:false, message:error.message

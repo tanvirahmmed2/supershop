@@ -14,7 +14,7 @@ export const isStaff = async () => {
 
         const decoded = jwt.verify(token, JWT_SECRET);
         
-        const result = await pool.query('SELECT staff_id, role, name FROM staffs WHERE staff_id = $1', [decoded.id]);
+        const result = await pool.query('SELECT staff_id, role,email, branch_id, name FROM staffs WHERE staff_id = $1', [decoded.id]);
 
         if (result.rowCount === 0) {
             return { success: false, message: 'Account not found' };
@@ -25,11 +25,7 @@ export const isStaff = async () => {
         return {
             success: true,
             message: 'Verification successful',
-            payload: {
-                id: staff.staff_id,
-                role: staff.role, 
-                name: staff.name
-            }
+            payload: staff
         };
 
     } catch (error) {

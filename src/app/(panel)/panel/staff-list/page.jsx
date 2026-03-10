@@ -30,7 +30,7 @@ const CategoryListPage = () => {
           </div>
           {
             staffs.map((staff) => (
-              <div key={staff.staff_id} className='w-full grid grid-cols-5 p-2 even:bg-gray-300'>
+              <div key={staff.email} className='w-full grid grid-cols-5 p-2 even:bg-gray-300'>
                 <p>{staff.name}</p>
                 <p>{staff.role}</p>
                 <p>{staff.branch_name || 'Main'}</p>

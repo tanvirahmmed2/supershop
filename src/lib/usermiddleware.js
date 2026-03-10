@@ -7,7 +7,7 @@ import { pool } from "./database/db"
 
 export const isUserLogin = async () => {
     try {
-        const token = (await cookies()).get('supershop_token')?.value
+        const token = (await cookies()).get('supershop_user')?.value
         if (!token) {
             return {
                 success: false, message: 'Please login'
