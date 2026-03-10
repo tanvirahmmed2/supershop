@@ -106,8 +106,8 @@ const PanelSidebar = () => {
           <NavItem id="main-report" label="Report" icon={CircleUser} option={option} toggleOption={toggleOption}>
             <Link className={subLinkStyle} href={'/panel/total-stock'}>Total Stock</Link>
             <Link className={subLinkStyle} href={'/panel/total-sales-report'}>Total Sales Report</Link>
-            <Link className={subLinkStyle} href={'/panel/total-purchase-report'}>Total Purchase Report</Link>
-            <Link className={subLinkStyle} href={'/panel/total-report'}>Total Report</Link>
+            <Link className={subLinkStyle} href={'/panel/report/total-purchase'}>Total Purchase Report</Link>
+            <Link className={subLinkStyle} href={'/panel/report'}>Total Report</Link>
           </NavItem>
 
           <div className='my-2 border-t border-slate-100 mx-4'></div>
