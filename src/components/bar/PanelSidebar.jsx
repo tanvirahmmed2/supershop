@@ -60,7 +60,7 @@ const PanelSidebar = () => {
         staff?.role === 'inventory_manager' && <NavItem id="purchase" label="Purchase" icon={IoBag} option={option} toggleOption={toggleOption}>
           <Link className={subLinkStyle} href={'/panel/purchase'}>Purchase</Link>
           <Link className={subLinkStyle} href={'/panel/purchase-list'}>Purchase List</Link>
-          <Link className={subLinkStyle} href={'/panel/purchase-payments'}>Payments</Link>
+          <Link className={subLinkStyle} href={'/panel/purchase-list/payments'}>Payments</Link>
         </NavItem>
       }
 
