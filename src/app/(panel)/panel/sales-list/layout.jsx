@@ -3,11 +3,11 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 export const metadata={
-    title:'Purchase List | Super Shop',
-    description:'Purchase List add page in Super shop'
+    title:'Sales List | Super Shop',
+    description:'Sales List add page in Super shop'
 }
 
-const PurchaseListLayout = async({children}) => {
+const SalesListLayout = async({children}) => {
    const auth= await isInventoryManager()
     if(!auth.success) return redirect('/panel')
   return (
@@ -17,4 +17,4 @@ const PurchaseListLayout = async({children}) => {
   )
 }
 
-export default PurchaseListLayout
+export default SalesListLayout
