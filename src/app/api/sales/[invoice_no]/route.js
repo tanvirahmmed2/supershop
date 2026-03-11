@@ -32,19 +32,19 @@ export async function GET(req, { params }) {
             }, { status: 404 });
         }
 
-        const sale = saleData.rows;
+        
+        const sale = saleData.rows[0];
 
+        
         const itemsQuery = `
             SELECT 
                 sp.*, 
                 p.name as product_name, 
-                p.barcode,
-                p.unit -- e.g., 'kg', 'pcs'
+                p.barcode
             FROM sale_products sp
             JOIN products p ON sp.product_id = p.product_id
             WHERE sp.sale_id = $1
         `;
-
         const itemsData = await pool.query(itemsQuery, [sale.sale_id]);
 
         const paymentsData = await pool.query(
@@ -63,6 +63,7 @@ export async function GET(req, { params }) {
         }, { status: 200 });
 
     } catch (error) {
+        console.error("INVOICE_GET_ERROR:", error.message);
         return NextResponse.json({
             success: false, message: error.message
         }, { status: 500 });

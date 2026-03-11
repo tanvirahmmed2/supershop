@@ -25,15 +25,13 @@ const TotalPurchaseReport = () => {
         fetchReport()
     }, [branch_term])
 
-    // Calculations for the report summary
     const totalAmount = totalPurchases?.reduce((acc, curr) => acc + Number(curr.grand_total), 0) || 0;
     const totalDiscount = totalPurchases?.reduce((acc, curr) => acc + Number(curr.discount), 0) || 0;
     const totalOrders = totalPurchases?.length || 0;
 
     return (
-        <div className='w-full p-6 bg-[#f8f9fa] min-h-screen flex flex-col gap-6'>
+        <div className='w-full p-6  min-h-screen flex flex-col gap-6'>
             
-            {/* Header & Filter Section */}
             <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm'>
                 <div>
                     <h1 className='text-2xl font-black text-slate-800 tracking-tight uppercase'>Purchase Summary Report</h1>
@@ -58,7 +56,6 @@ const TotalPurchaseReport = () => {
                 </div>
             </div>
 
-            {/* Summary Analytics Cards */}
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
                 <div className='bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4'>
                     <div className='p-4 bg-blue-100 text-blue-600 rounded-2xl'><FiTrendingUp size={24}/></div>
@@ -87,7 +84,7 @@ const TotalPurchaseReport = () => {
 
             [Image of a data dashboard showing procurement expenditure and line graphs]
 
-            {/* Detailed Table Section */}
+
             <div className='bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden'>
                 <div className='p-5 border-b border-slate-100'>
                     <h2 className='text-sm font-black text-slate-700 uppercase'>Invoice Breakdown</h2>

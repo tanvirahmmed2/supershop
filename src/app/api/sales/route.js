@@ -100,17 +100,14 @@ export async function POST(req) {
             RETURNING sale_id`,
             [branch_id, staff_id, customerId, invoice_no, total_amount, discount_amount, grand_total, notes]
         );
-        // Use to access the first row
-        const saleId = saleRes.rows.sale_id;
+        const saleId = saleRes.rows[0].sale_id;
 
-        // --- PAYMENT RECORD ---
         await client.query(
             `INSERT INTO sale_payments (sale_id, amount_paid, payment_method, transaction_id)
              VALUES ($1, $2, $3, $4)`,
             [saleId, grand_total, payment_method, transaction_id]
         );
 
-        // --- ITEMS & INVENTORY ---
         for (const item of items) {
             await client.query(
                 `INSERT INTO sale_products (sale_id, product_id, quantity, unit_price, sub_total)
@@ -126,7 +123,7 @@ export async function POST(req) {
 
             if (updateStock.rowCount === 0) {
                 const actual = await client.query('SELECT stock FROM inventory WHERE branch_id = $1 AND product_id = $2', [branch_id, item.product_id]);
-                // Use here as well
+            
                 const available = actual.rows?.stock || 0;
                 throw new Error(`Insufficient stock for Product ID ${item.product_id}. Available: ${available}, Required: ${item.quantity}`);
             }
