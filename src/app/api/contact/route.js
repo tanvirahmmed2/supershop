@@ -42,8 +42,6 @@ export async function GET() {
     }
 }
 
-import { pool } from "@/lib/database/db";
-import { NextResponse } from "next/server";
 
 export async function DELETE(req, { params }) {
     try {
