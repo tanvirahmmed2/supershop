@@ -1,4 +1,4 @@
-import { isInventoryManager } from '@/lib/middleware'
+import {  isISales } from '@/lib/middleware'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
@@ -8,7 +8,7 @@ export const metadata={
 }
 
 const SalesListLayout = async({children}) => {
-   const auth= await isInventoryManager()
+   const auth= await isISales()
     if(!auth.success) return redirect('/panel')
   return (
     <div className='w-full overflow-x-hidden p-1 sm:p-4'>

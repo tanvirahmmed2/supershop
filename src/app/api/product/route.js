@@ -14,7 +14,7 @@ export async function GET(req) {
         let query = `
             SELECT 
                 p.*, 
-                COALESCE(SUM(i.stock), 0) as total_stock
+                COALESCE(SUM(i.stock), 0) as stock
             FROM public.products p
             LEFT JOIN public.inventory i ON p.product_id = i.product_id
         `;

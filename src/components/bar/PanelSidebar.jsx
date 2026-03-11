@@ -50,9 +50,9 @@ const PanelSidebar = () => {
 
       {
         staff?.role === 'sales' && <NavItem id="sales" label="Sales" icon={IoCartOutline} option={option} toggleOption={toggleOption}>
-          <Link className={subLinkStyle} href={'/panel/pos'}>POS</Link>
+          <Link className={subLinkStyle} href={'/panel/sales'}>POS</Link>
           <Link className={subLinkStyle} href={'/panel/sales-list'}>Sales List</Link>
-          <Link className={subLinkStyle} href={'/panel/sales-payments'}>Payments</Link>
+          <Link className={subLinkStyle} href={'/panel/sales-list/payments'}>Payments</Link>
         </NavItem>
       }
 

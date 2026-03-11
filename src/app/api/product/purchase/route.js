@@ -18,7 +18,7 @@ export async function GET(req) {
             SELECT 
                 p.*, 
                 c.name as category_name,
-                COALESCE(SUM(i.stock), 0) as total_stock
+                COALESCE(SUM(i.stock), 0) as stock
             FROM public.products p
             LEFT JOIN public.categories c ON p.category_id = c.category_id
             LEFT JOIN public.inventory i ON p.product_id = i.product_id

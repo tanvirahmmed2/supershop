@@ -14,7 +14,7 @@ const NewPurchase = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`/api/product/search?q=${searchTerm}`, { withCredentials: true })
+        const res = await axios.get(`/api/product/purchase?q=${searchTerm}`, { withCredentials: true })
         setProducts(res.data.payload)
       } catch (error) {
         setProducts([])
