@@ -2,10 +2,10 @@
 import { Context } from '@/components/helper/Context'
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { FiSearch, FiDollarSign, FiCalendar, FiEye } from 'react-icons/fi'
+import { FiDollarSign, FiEye, FiTrendingUp, FiCreditCard } from 'react-icons/fi'
 import Link from 'next/link'
 
-const PaymentListPage = () => {
+const SalesPaymentListPage = () => {
   const { staff } = useContext(Context)
   const [payments, setPayments] = useState([])
   const [loading, setLoading] = useState(true)
@@ -13,7 +13,7 @@ const PaymentListPage = () => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const res = await axios.get('/api/purchase/payment/branch', { withCredentials: true })
+        const res = await axios.get('/api/sales/payment/branch', { withCredentials: true })
         if (res.data.success) setPayments(res.data.payload)
       } catch (error) {
         setPayments([])
@@ -22,86 +22,124 @@ const PaymentListPage = () => {
       }
     }
     fetchPayments()
-  }, [staff])
+  }, [staff?.branch_id])
 
-  const totalPaid = payments.reduce((acc, curr) => acc + Number(curr.amount_paid), 0)
+  const totalReceived = payments.reduce((acc, curr) => acc + Number(curr.amount_paid), 0)
 
   return (
-    <div className='w-full p-6 bg-[#f8f9fa] min-h-screen'>
+    <div className='w-full p-6 bg-[#fcfcfc] min-h-screen'>
       <div className='max-w-6xl mx-auto flex flex-col gap-6'>
         
-        <div className='flex justify-between items-end'>
+        <div className='flex flex-col md:flex-row justify-between items-start md:items-end gap-4'>
           <div>
-            <h1 className='text-2xl font-black text-slate-800 tracking-tight uppercase'>Payment History</h1>
-            <p className='text-sm text-slate-500'>Tracking all supplier outflows and transactions</p>
+            <h1 className='text-2xl font-black text-slate-800 tracking-tight uppercase flex items-center gap-2'>
+              <FiCreditCard className='text-blue-600'/> Revenue Ledger
+            </h1>
+            <p className='text-sm text-slate-500 font-medium'>Detailed log of all customer payments and POS inflows</p>
           </div>
-          <div className='bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4'>
-            <div className='p-3 bg-green-100 text-green-600 rounded-full'><FiDollarSign size={20}/></div>
+          
+          <div className='bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 min-w-[240px]'>
+            <div className='p-3 bg-blue-50 text-blue-600 rounded-xl shadow-inner'>
+                <FiTrendingUp size={24}/>
+            </div>
             <div>
-              <p className='text-[10px] font-bold text-slate-400 uppercase'>Total Outflow</p>
-              <p className='text-xl font-black text-slate-900'>৳{totalPaid.toLocaleString()}</p>
+              <p className='text-[10px] font-black text-slate-400 uppercase tracking-widest'>Total Collected</p>
+              <p className='text-2xl font-black text-slate-900 leading-none mt-1'>
+                ৳{totalReceived.toLocaleString()}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className='bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden'>
+        <div className='bg-white rounded-8 shadow-sm border border-slate-100 overflow-hidden'>
           <div className='overflow-x-auto'>
             <table className='w-full text-left'>
               <thead>
-                <tr className='bg-slate-50 border-b text-[10px] font-black uppercase text-slate-500 tracking-widest'>
-                  <th className='p-4'>Date</th>
-                  <th className='p-4'>Invoice</th>
-                  <th className='p-4'>Supplier</th>
-                  <th className='p-4 text-center'>Method</th>
-                  <th className='p-4 text-right'>Paid Amount</th>
-                  <th className='p-4 text-center'>Action</th>
+                <tr className='bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]'>
+                  <th className='p-5'>Payment Date</th>
+                  <th className='p-5'>Invoice No</th>
+                  <th className='p-5'>Customer Details</th>
+                  <th className='p-5 text-center'>Method</th>
+                  <th className='p-5 text-right'>Amount Received</th>
+                  <th className='p-5 text-center'>View</th>
                 </tr>
               </thead>
-              <tbody className='divide-y divide-slate-100'>
+              <tbody className='divide-y divide-slate-50'>
                 {loading ? (
-                  <tr><td colSpan="6" className='p-20 text-center text-slate-400'>Loading transactions...</td></tr>
+                  <tr>
+                    <td colSpan="6" className='p-20 text-center'>
+                        <div className='flex flex-col items-center gap-2 animate-pulse'>
+                            <div className='w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin'></div>
+                            <span className='text-xs font-black text-slate-400 uppercase tracking-widest'>Fetching Ledger...</span>
+                        </div>
+                    </td>
+                  </tr>
                 ) : payments.length > 0 ? (
                   payments.map((p) => (
-                    <tr key={p.payment_id} className='hover:bg-slate-50/50 transition-colors font-medium text-sm'>
-                      <td className='p-4 text-slate-500'>
-                        {new Date(p.payment_date).toLocaleDateString('en-GB')}
-                      </td>
-                      <td className='p-4 font-mono font-bold text-blue-600 uppercase text-xs'>
-                        #{p.invoice_no}
-                      </td>
-                      <td className='p-4'>
+                    <tr key={p.payment_id} className='hover:bg-slate-50/50 transition-all group'>
+                      <td className='p-5'>
                         <div className='flex flex-col'>
-                            <span className='text-slate-800 font-semibold'>{p.supplier_name}</span>
-                            <span className='text-[10px] text-slate-400 uppercase tracking-tighter'>{p.branch_name}</span>
+                            <span className='text-sm font-bold text-slate-700'>
+                                {new Date(p.payment_date).toLocaleDateString('en-GB')}
+                            </span>
+                            <span className='text-[10px] text-slate-400 font-bold uppercase'>
+                                {new Date(p.payment_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
                         </div>
                       </td>
-                      <td className='p-4 text-center'>
-                        <span className='px-2 py-0.5 bg-slate-100 border rounded text-[10px] font-bold text-slate-600 uppercase tracking-tight'>
+                      <td className='p-5'>
+                        <span className='font-mono font-black text-blue-600 uppercase text-xs bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100'>
+                          {p.invoice_no}
+                        </span>
+                      </td>
+                      <td className='p-5'>
+                        <div className='flex flex-col'>
+                            <span className='text-sm font-black text-slate-800'>{p.customer_name || 'Walk-in Customer'}</span>
+                            <span className='text-[11px] text-slate-500 font-medium tracking-tight'>{p.customer_phone || 'N/A'}</span>
+                        </div>
+                      </td>
+                      <td className='p-5 text-center'>
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border ${
+                            p.payment_method === 'cash' ? 'bg-green-50 text-green-700 border-green-100' : 'bg-purple-50 text-purple-700 border-purple-100'
+                        }`}>
                             {p.payment_method}
                         </span>
                       </td>
-                      <td className='p-4 text-right font-black text-slate-900'>৳{Number(p.amount_paid).toLocaleString()}</td>
-                      <td className='p-4 text-center'>
+                      <td className='p-5 text-right'>
+                        <span className='text-lg font-black text-slate-900 tracking-tight'>
+                            ৳{Number(p.amount_paid).toLocaleString()}
+                        </span>
+                      </td>
+                      <td className='p-5 text-center'>
                         <Link 
-                          href={`/panel/purchase/${p.invoice_no}`} 
-                          className='inline-flex items-center justify-center p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all'
-                          title="View Invoice Details"
+                          href={`/dashboard/sales/${p.invoice_no}`} 
+                          className='inline-flex items-center justify-center w-10 h-10 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all shadow-sm group-hover:shadow-md'
+                          title="View Digital Receipt"
                         >
-                          <FiEye size={18} />
+                          <FiEye size={20} />
                         </Link>
                       </td>
                     </tr>
                   ))
                 ) : (
-                  <tr><td colSpan="6" className='p-20 text-center text-slate-400 italic'>No payment records found.</td></tr>
+                  <tr>
+                    <td colSpan="6" className='p-20 text-center text-slate-300 font-black uppercase tracking-[0.3em] text-xs'>
+                        No transaction data available
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div className='flex justify-between items-center px-4 text-[10px] font-black text-slate-400 uppercase tracking-widest'>
+            <p>Branch: {staff?.branch_name || 'Primary'}</p>
+            <p>{payments.length} Transactions Found</p>
         </div>
       </div>
     </div>
   )
 }
 
-export default PaymentListPage
+export default SalesPaymentListPage

@@ -27,7 +27,7 @@ export async function GET(req) {
             JOIN branches b ON s.branch_id = b.branch_id
             LEFT JOIN customers c ON s.customer_id = c.customer_id
         `;
-        
+
         let values = [];
 
         if (branch_id) {
@@ -41,21 +41,21 @@ export async function GET(req) {
 
         if (data.rowCount === 0) {
             return NextResponse.json({
-                success: true, 
-                message: branch_id ? "No sale payments found for this branch" : "No sale payments found", 
+                success: true,
+                message: branch_id ? "No sale payments found for this branch" : "No sale payments found",
                 payload: []
             }, { status: 200 });
         }
 
         return NextResponse.json({
-            success: true, 
-            message: 'Successfully fetched sale payment records', 
+            success: true,
+            message: 'Successfully fetched sale payment records',
             payload: data.rows
         }, { status: 200 });
 
     } catch (error) {
         return NextResponse.json({
-            success: false, 
+            success: false,
             message: error.message
         }, { status: 500 });
     }
