@@ -38,7 +38,7 @@ const SalesPaymentListPage = () => {
             <p className='text-sm text-slate-500 font-medium'>Detailed log of all customer payments and POS inflows</p>
           </div>
           
-          <div className='bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 min-w-[240px]'>
+          <div className='bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4 min-w-60'>
             <div className='p-3 bg-blue-50 text-blue-600 rounded-xl shadow-inner'>
                 <FiTrendingUp size={24}/>
             </div>

@@ -1,8 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { FiSearch, FiUser, FiPhone, FiStar, FiShoppingBag, FiLoader, FiExternalLink } from 'react-icons/fi'
-import Link from 'next/link'
+import { FiSearch, FiUser, FiPhone, FiStar, FiShoppingBag, FiLoader } from 'react-icons/fi'
 
 const Customers = () => {
   const [customers, setCustomers] = useState([])
