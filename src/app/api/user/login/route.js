@@ -14,15 +14,15 @@ export async function POST(req) {
             },{status:400})
         }
 
-        const existStaff= await pool.query(`SELECT * FROM staffs WHERE email=$1`,[email])
-        if(existStaff.rowCount===0){
+        const existuser= await pool.query(`SELECT * FROM users WHERE email=$1`,[email])
+        if(existuser.rowCount===0){
             return NextResponse.json({
-                success:false, message:'No staff found with this email'
+                success:false, message:'No user found with this email'
             },{status:400})
         }
-        const staff= existStaff.rows[0]
+        const user= existuser.rows[0]
 
-        const isMatchPass= await bcrypt.compare(password, staff.password)
+        const isMatchPass= await bcrypt.compare(password, user.password)
         if(!isMatchPass){
             return NextResponse.json({
                 success:false, message:'Incorrect credentials'
@@ -30,10 +30,8 @@ export async function POST(req) {
         }
 
         const payload={
-            id: staff.staff_id,
-            email:staff.email,
-            role:staff.role,
-            branch_id:staff.branch_id
+            id: user.user_id,
+            email:user.email,
         }
 
         const token= jwt.sign(

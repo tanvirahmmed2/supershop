@@ -2,29 +2,31 @@ import { pool } from "@/lib/database/db";
 import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
 import { sendEmail } from "@/lib/database/brevo";
+import { isUserLogin } from "@/lib/usermiddleware";
 
 
 
-// export async function GET() {
-//     try {
-//         const data = await pool.query('SELECT * FROM users ORDER BY role ASC')
-//         if (data.rowCount === 0) {
-//             return NextResponse.json({
-//                 success: false, message: "No user found"
-//             }, { status: 400 })
-//         }
+export async function GET() {
+    try {
+        const auth= await isUserLogin()
+        if(!auth.success){
+            return NextResponse.json({
+                success:false, message:auth.message
+            },{status:400})
+        }
+        
 
-//         return NextResponse.json({
-//             success: true, message: 'Successfully fetched user data', payload: data.rows
-//         }, { status: 200 })
-//     } catch (error) {
-//         return NextResponse.json({
-//             success: false, message: error.message
-//         }, { status: 500 })
+        return NextResponse.json({
+            success: true, message: 'Successfully fetched user data', payload: auth.payload
+        }, { status: 200 })
+    } catch (error) {
+        return NextResponse.json({
+            success: false, message: error.message
+        }, { status: 500 })
 
-//     }
+    }
 
-// }
+}
 
 export async function DELETE(req) {
     try {

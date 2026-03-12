@@ -14,7 +14,7 @@ export async function POST(req) {
         const expiry = new Date(Date.now() + 15 * 60000);
 
         const res = await pool.query(
-            `UPDATE public.staffs SET password_otp= $1, otp_expires_at= $2 WHERE email = $3 RETURNING name`,
+            `UPDATE public.users SET password_otp= $1, otp_expires_at= $2 WHERE email = $3 RETURNING name`,
             [otp, expiry, email]
         );
 
