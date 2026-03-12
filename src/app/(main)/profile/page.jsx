@@ -30,7 +30,7 @@ const UserProfilePage = () => {
         <p>{user?.phone}</p>
         <button className='px-3 rounded-2xl shadow-md border border-black/10 cursor-pointer hover:shadow-xl' onClick={handleLogout}>Logout</button>
       </div>
-      
+      <Link href={'/profile/purchases'} className='px-3 rounded-2xl shadow-md border border-black/10 cursor-pointer hover:shadow-xl'>Purchases</Link>
     </div>
   )
 }
