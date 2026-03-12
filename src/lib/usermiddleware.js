@@ -16,7 +16,7 @@ export const isUserLogin = async () => {
 
         const decode = jwt.verify(token, JWT_SECRET)
 
-        const data = await pool.query('SELECT user_id, email FROM users WHERE user_id=$1', [decode.id])
+        const data = await pool.query('SELECT user_id, email, phone, name FROM users WHERE user_id=$1', [decode.id])
         if (data.rowCount === 0) {
             return { success: false, message: 'User not found' }
         }

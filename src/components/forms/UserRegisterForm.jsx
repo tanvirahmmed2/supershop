@@ -1,5 +1,6 @@
 'use client'
 import axios from 'axios'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -51,6 +52,7 @@ const UserRegisterForm = () => {
         <label htmlFor="password">Password</label>
         <input type="text" name='password' id='password' onChange={handleChange} required value={formData.password} className='w-full px-3 p-1 border border-black/20 outline-none'/>
       </div>
+      <Link href={'/user-login'} className='w-full text-xs text-right'>Login</Link>
       <button className='w-full bg-black hover:bg-gray-800 text-white p-1 text-center cursor-pointer' type='submit'>Next</button>
     </form>
   )

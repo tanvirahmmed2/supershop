@@ -1,7 +1,6 @@
 import { pool } from "@/lib/database/db";
 import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
-import { sendEmail } from "@/lib/database/brevo";
 import { isUserLogin } from "@/lib/usermiddleware";
 
 
@@ -15,7 +14,7 @@ export async function GET() {
             },{status:400})
         }
         
-
+        
         return NextResponse.json({
             success: true, message: 'Successfully fetched user data', payload: auth.payload
         }, { status: 200 })
@@ -105,5 +104,47 @@ export async function POST(req) {
         return NextResponse.json({
             success: false, message: error.message
         }, { status: 500 })
+    }
+}
+
+
+export async function PATCH(req) {
+    try {
+        const auth = await isUserLogin();
+        if (!auth.success) {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+        }
+
+        const userId = auth.payload.user_id;
+        const currentPhone = auth.payload.phone;
+        const { name, email, password } = await req.json();
+
+        if (!name || !email) {
+            return NextResponse.json({ success: false, message: 'Name and Email are required' }, { status: 400 });
+        }
+
+        let query;
+        let values;
+
+        if (password && password.trim() !== "") {
+            const hashPass = await bcrypt.hash(password, 10);
+            query = `UPDATE users SET name = $1, email = $2, password = $3 WHERE user_id = $4`;
+            values = [name, email, hashPass, userId];
+        } else {
+            query = `UPDATE users SET name = $1, email = $2 WHERE user_id = $3`;
+            values = [name, email, userId];
+        }
+
+        await pool.query(query, values);
+
+        await pool.query(
+            `UPDATE customers SET name = $1, email = $2 WHERE phone = $3`,
+            [name, email, currentPhone]
+        );
+
+        return NextResponse.json({ success: true, message: 'Profile updated successfully' }, { status: 200 });
+
+    } catch (error) {
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 }

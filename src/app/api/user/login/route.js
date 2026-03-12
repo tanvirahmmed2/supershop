@@ -33,6 +33,7 @@ export async function POST(req) {
         const payload={
             id: user.user_id,
             email:user.email,
+            phone:user.phone
         }
 
         const token= jwt.sign(
