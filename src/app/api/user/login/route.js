@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET, NODE_ENV } from "@/lib/database/secret";
+import { isUserLogin } from "@/lib/usermiddleware";
 
 
 export async function POST(req) {
@@ -60,4 +61,28 @@ export async function POST(req) {
     }
     
 }
+
+
+export async function GET() {
+    try {
+        const auth= await isUserLogin()
+        if(!auth.success){
+            return NextResponse.json({
+                success:false, message:auth.message
+            },{status:400})
+        }
+        
+
+        return NextResponse.json({
+            success: true, message: 'Successfully fetched user data', payload: auth.payload
+        }, { status: 200 })
+    } catch (error) {
+        return NextResponse.json({
+            success: false, message: error.message
+        }, { status: 500 })
+
+    }
+
+}
+
 

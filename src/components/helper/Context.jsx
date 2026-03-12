@@ -51,7 +51,6 @@ const ContextProvider = ({ children }) => {
         fetchUser()
     }, [])
 
-    // fetch data collections
 
     const fetchBrands = async () => {
         try {

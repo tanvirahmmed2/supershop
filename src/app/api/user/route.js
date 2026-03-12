@@ -68,9 +68,7 @@ export async function POST(req) {
             }, { status: 400 })
         }
 
-        
-
-        const existUser = await pool.query(`SELECT * FROM users WHERE email=$1 OR phone=$2`, [email, phone])
+        const existUser = await pool.query(`SELECT email FROM users WHERE email=$1 OR phone=$2`, [email, phone])
         if (existUser.rowCount > 0) {
             return NextResponse.json({
                 success: false, message: 'User already exists with this email or phone'
@@ -80,7 +78,7 @@ export async function POST(req) {
         const hashPass = await bcrypt.hash(password, 10)
 
         const newUser = await pool.query(
-            `INSERT INTO users(name, email, phone, password) VALUES($1, $2, $3, $4) RETURNING name`,
+            `INSERT INTO users(name, email, phone, password) VALUES($1, $2, $3, $4) RETURNING user_id`,
             [name, email, phone, hashPass]
         )
 
@@ -89,12 +87,21 @@ export async function POST(req) {
                 success: false, message: 'Failed to create user'
             }, { status: 400 })
         }
+
+        await pool.query(`
+            INSERT INTO customers (name, phone, email) 
+            VALUES ($1, $2, $3)
+            ON CONFLICT (phone) 
+            DO UPDATE SET name = EXCLUDED.name, email = EXCLUDED.email
+        `, [name, phone, email]);
+
         return NextResponse.json({
             success: true, 
-            message: 'Successfully created user and sent credentials email', 
+            message: 'Successfully created user and synced customer profile', 
         }, { status: 201 })
 
     } catch (error) {
+        console.error("Signup Error:", error.message);
         return NextResponse.json({
             success: false, message: error.message
         }, { status: 500 })

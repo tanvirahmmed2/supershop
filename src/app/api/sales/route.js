@@ -69,7 +69,6 @@ export async function POST(req) {
 
         await client.query('BEGIN');
 
-        // --- CUSTOMER LOGIC (FIXED) ---
         let customerId = null;
         if (customer_phone && customer_phone.trim() !== "") {
             const customerRes = await client.query(
@@ -80,12 +79,26 @@ export async function POST(req) {
             if (customerRes.rowCount > 0) {
                 customerId = customerRes.rows[0].customer_id;
             } else {
-                const newCustomer = await client.query(
-                    `INSERT INTO customers (name, phone, points) 
-                     VALUES ($1, $2, 0) RETURNING customer_id`,
-                    ['Walk-in Customer', customer_phone]
+                const userRes = await client.query(
+                    'SELECT name, email FROM users WHERE phone = $1',
+                    [customer_phone]
                 );
-                customerId = newCustomer.rows.customer_id;
+
+                let customerName = 'Walk-in Customer';
+                let customerEmail = null;
+
+                if (userRes.rowCount > 0) {
+                    customerName = userRes.rows[0].name;
+                    customerEmail = userRes.rows[0].email;
+                }
+
+                const newCustomer = await client.query(
+                    `INSERT INTO customers (name, phone, email, points) 
+                     VALUES ($1, $2, $3, 0) RETURNING customer_id`,
+                    [customerName, customer_phone, customerEmail]
+                );
+                
+                customerId = newCustomer.rows[0].customer_id;
             }
         }
 

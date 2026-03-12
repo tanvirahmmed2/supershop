@@ -2,6 +2,7 @@
 import ContextProvider from "@/components/helper/Context";
 import "./globals.css";
 import ToastProvider from "@/components/helper/ToastProvider";
+import Footer from "@/components/bar/Footer";
 
 
 export default function RootLayout({ children }) {
