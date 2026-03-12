@@ -28,14 +28,13 @@ export async function GET(req) {
             values.push(category_id);
         }
 
-        // Grouping is required when using SUM()
-        query += ` GROUP BY p.product_id`;
-
         const totalRes = await pool.query(countQuery, values);
         const totalItems = parseInt(totalRes.rows[0].count);
         const totalPages = Math.ceil(totalItems / limit) || 1;
 
-        query += ` ORDER BY p.name ASC LIMIT $${values.length + 1} OFFSET $${values.length + 2}`;
+        query += ` GROUP BY p.product_id`;
+        query += ` ORDER BY p.product_id DESC`;
+        query += ` LIMIT $${values.length + 1} OFFSET $${values.length + 2}`;
         
         const finalValues = [...values, limit, offset];
         const data = await pool.query(query, finalValues);

@@ -21,10 +21,14 @@ export async function GET(req, { params }) {
         const totalPages = Math.ceil(totalItems / limit) || 1;
 
         const query = `
-            SELECT p.* 
+            SELECT 
+                p.*, 
+                COALESCE(SUM(i.stock), 0) AS stock
             FROM products p
             INNER JOIN categories c ON p.category_id = c.category_id
+            LEFT JOIN inventory i ON p.product_id = i.product_id
             WHERE c.slug = $1 
+            GROUP BY p.product_id
             ORDER BY p.product_id DESC 
             LIMIT $2 OFFSET $3
         `;
@@ -33,12 +37,14 @@ export async function GET(req, { params }) {
       
         return NextResponse.json({
             success: true,
-            message:'Successfully fetched data', 
+            message: 'Successfully fetched data', 
             payload: data.rows, 
             totalPages: totalPages,
+            currentPage: page
         }, { status: 200 });
 
     } catch (error) {
+        console.error("CATEGORY_PRODUCTS_ERROR:", error.message);
         return NextResponse.json({
             success: false, 
             message: error.message
