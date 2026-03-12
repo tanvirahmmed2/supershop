@@ -53,6 +53,7 @@ const PanelSidebar = () => {
           <Link className={subLinkStyle} href={'/panel/sales'}>POS</Link>
           <Link className={subLinkStyle} href={'/panel/sales-list'}>Sales List</Link>
           <Link className={subLinkStyle} href={'/panel/sales-list/payments'}>Payments</Link>
+          <Link className={subLinkStyle} href={'/panel/pending-sales'}>Pending Orders</Link>
         </NavItem>
       }
 

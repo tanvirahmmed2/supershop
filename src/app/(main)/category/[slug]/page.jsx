@@ -19,7 +19,7 @@ const ProductsPage = ({params}) => {
           }
         })
         setProducts(res.data.payload)
-        setTotalPage(res.data.totalPage) 
+        setTotalPage(res.data.totalPages) 
       } catch (error) {
         console.log(error)
         setProducts([])
@@ -28,7 +28,6 @@ const ProductsPage = ({params}) => {
     }
     fetchProducts()
   }, [ page, slug])
-
 
 
   return (
