@@ -20,7 +20,7 @@ const Navbar = () => {
           user === null ? <Link className='px-1 sm:px-4 text-sm sm:text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500' href={'/user-login'}><MdLogin /></Link> :
             <Link className='px-1 sm:px-4 text-sm sm:text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500' href={'/profile'}><UserRound /></Link>
         }
-
+        <Link href={'/cart'} className='hidden  text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto sm:flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500'>Cart</Link>
       </div>
 
     </nav>
