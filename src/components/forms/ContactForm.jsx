@@ -2,6 +2,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 const ContactForm = () => {
     const [formData, setFormData]= useState({
@@ -43,7 +44,7 @@ const ContactForm = () => {
             <label htmlFor="note">Note</label>
             <textarea type="text" name='note' id='note' required onChange={handleChange} value={formData.note} className='w-full px-3 p-1 border border-black/20 outline-none' />
         </div>
-        <button className='w-full p-1 bg-black text-white cursor-pointer' type='submit'>Submit</button>
+        <motion.button initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:1}} className='w-full p-1 bg-black text-white cursor-pointer' type='submit'>Submit</motion.button>
     </form>
   )
 }

@@ -37,7 +37,7 @@ const UserLoginForm = () => {
         <label htmlFor="password">Password</label>
         <input type="password" id='password' name='password' value={formData.password} required onChange={handleChange} className='w-full px-3 p-1 border border-black/20 outline-none' />
       </div>
-      <Link className='w-full text-right text-xs' href={'/staff-recover'}>Recover account</Link>
+      <Link className='w-full text-right text-xs' href={'/user-recover'}>Recover account</Link>
       <button type='submit' className='px-4 p-1 bg-black text-white hover:bg-black/80 cursor-pointer'>Login</button>
     </form>
   )

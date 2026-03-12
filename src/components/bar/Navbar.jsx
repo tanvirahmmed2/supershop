@@ -13,7 +13,7 @@ const Navbar = () => {
         <button className='px-1 sm:px-4 text-sm sm:text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500'><IoSearchSharp/></button>
         <Link href={'/products'} className='px-1 sm:px-4 text-sm sm:text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500'>Products</Link>
         <Link href={'/outlets'} className='px-1 sm:px-4 text-sm sm:text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500'>Outlets</Link>
-        <Link className='px-1 sm:px-4 text-sm sm:text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500' href={'/login'}><MdLogin/></Link>
+        <Link className='px-1 sm:px-4 text-sm sm:text-base md:text-lg cursor-pointer h-14 sm:h-16 md:h-20 w-auto flex items-center justify-center hover:bg-orange-200 ease-in-out transform duration-500' href={'/user-login'}><MdLogin/></Link>
       </div>
       
     </nav>
