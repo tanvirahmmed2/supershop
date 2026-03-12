@@ -19,7 +19,9 @@ const Item = ({ product }) => {
 
             </Link>
            {product.discount_price>0 && <p className='bg-orange-400 text-white px-2 rounded-2xl absolute z-10 top-2 right-2 text-xs uppercase'>Save BDT {product.discount_price.split('.')[0]}</p>}
-            <button onClick={() => addToCart(product)} className='w-full sm:absolute z-10 bottom-0 sm:p-1 transition ease-in-out duration-500 bg-orange-400 text-white transform cursor-pointer group-hover:translate-y-0 translate-y-0 sm:translate-y-full'>Add to cart</button>
+           {
+            product.stock >0 &&  <button onClick={() => addToCart(product)} className='w-full sm:absolute z-10 bottom-0 sm:p-1 transition ease-in-out duration-500 bg-orange-400 text-white transform cursor-pointer group-hover:translate-y-0 translate-y-0 sm:translate-y-full'>Add to cart</button>
+           }
             
         </motion.div>
     )

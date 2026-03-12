@@ -161,10 +161,11 @@ const ContextProvider = ({ children }) => {
                     ...prev.items,
                     {
                         product_id: product.product_id,
+                        image:product.image,
                         name: product.name,
                         quantity: 1,
                         sale_price: salePrice,
-                        wholesale_price: wholeSalePrice,
+                        stock:product.stock,
                         discount_price: discountAmount,
                         price: salePrice
                     }

@@ -7,7 +7,7 @@ export const metadata={
 
 const CartLayout = ({children}) => {
   return (
-    <div className='w-full'>
+    <div className='w-full overflow-hidden p-1 sm:p-4'>
       {children}
     </div>
   )

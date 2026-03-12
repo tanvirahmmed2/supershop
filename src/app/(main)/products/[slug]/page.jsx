@@ -40,7 +40,10 @@ const SlugProductPage = ({ params }) => {
                 <p className=' font-semibold line-through text-red-400'>৳{product?.discount_price > 0 && product?.sale_price.split('.')[0]}</p>
                 <p className='text-2xl font-semibold'>৳{product?.sale_price - product?.discount_price}</p>
               </div>
-              <button className='bg-orange-400 text-white rounded-sm cursor-pointer hover:opacity-75' onClick={()=>addToCart(product)}>Add to Cart</button>
+              {
+                product?.stock>0 && <button className='bg-orange-400 text-white rounded-sm cursor-pointer hover:opacity-75' onClick={()=>addToCart(product)}>Add to Cart</button>
+              }
+              
               <p className='text-sm opacity-60'>{product?.description}</p>
               {product?.features.length > 0 && <div>
                 <p>Features:</p>
