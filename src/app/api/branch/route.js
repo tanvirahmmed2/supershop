@@ -38,7 +38,7 @@ export async function POST(req) {
 
         if (existBranch.rowCount !== 0) {
             return NextResponse.json({
-                success: false, message: 'Branche already exists'
+                success: false, message: 'Branch already exists'
             }, { status: 400 })
         }
 
@@ -92,4 +92,46 @@ export async function DELETE(req) {
         },{status:500})
     }
     
+}
+
+export async function PATCH(req) {
+    try {
+        const {branch_id, name, location, map_url, phone } = await req.json()
+
+        if (!name || !phone || !location || !map_url) {
+            return NextResponse.json({
+                success: false, message: 'Please provide all information'
+            }, { status: 400 })
+        }
+
+        const slug = slugify(name, { strict: true, lower: true })
+
+        const existBranch = await pool.query(`SELECT * FROM branches WHERE branch_id=$1`, [branch_id])
+
+        if (existBranch.rowCount === 0) {
+            return NextResponse.json({
+                success: false, message: 'Branch does not exists'
+            }, { status: 400 })
+        }
+        
+
+        const updateBranch = await pool.query(`UPDATE branches SET name=$1, phone=$2, location=$3, map_url=$4 WHERE branch_id=$5 `,[name,phone,location,map_url,branch_id])
+
+
+        if (updateBranch.rowCount === 0) {
+            return NextResponse.json({
+                success: false, message: 'Failed to create branch'
+            }, { status: 400 })
+        }
+
+        return NextResponse.json({
+            success: true, message: 'Successfully updated branch'
+        }, { status: 200 })
+
+    } catch (error) {
+        return NextResponse.json({
+            success: false, message: error.message
+        },{status:500})
+
+    } 
 }
