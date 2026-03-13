@@ -3,6 +3,7 @@ import UpdateProductForm from '@/components/forms/UpdateProductForm'
 import { Context } from '@/components/helper/Context'
 import axios from 'axios'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { MdCancel, MdDeleteOutline, MdEdit } from 'react-icons/md'
 import { toast } from 'react-toastify'
@@ -52,7 +53,6 @@ const ProductsPage = () => {
     }
   }
 
-  const [editBox, setEditBox] = useState(null)
 
   return (
     <div className='w-full flex flex-col items-center gap-4 p-1 min-h-screen sm:p-4'>
@@ -84,7 +84,7 @@ const ProductsPage = () => {
                   <p className='col-span-1'>{product?.barcode}</p>
                   <div className='col-span-1 flex flex-row items-center justify-center gap-4 text-xl'>
                     <button className='cursor-pointer' onClick={() => handleDelete(product.product_id)}><MdDeleteOutline /></button>
-                    <button className='cursor-pointer' onClick={() => setEditBox(product)} ><MdEdit /></button>
+                    <Link href={`/panel/product-list/${product.slug}`} className='cursor-pointer'  ><MdEdit /></Link>
                   </div>
                 </div>
               ))
@@ -114,14 +114,7 @@ const ProductsPage = () => {
           <p>No data found</p>
         )
       }
-      {
-        editBox !== null && <div className='flex items-center justify-center fixed inset-0 z-40 backdrop-blur-2 bg-black/40'>
-          <div className='relative bg-white p-4 rounded-2xl'>
-            <button className='top-2 right-2 absolute text-xl cursor-pointer' onClick={() => setEditBox(null)}><MdCancel /></button>
-            <UpdateProductForm product={editBox} />
-          </div>
-        </div>
-      }
+      
     </div>
   )
 }
