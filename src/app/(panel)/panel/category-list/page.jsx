@@ -1,5 +1,4 @@
 'use client'
-import CategoryCard from '@/components/card/CategoryCard'
 import UpdateCategoryForm from '@/components/forms/UpdateCategoryForm'
 import { Context } from '@/components/helper/Context'
 import axios from 'axios'

@@ -1,5 +1,5 @@
 'use client'
-import BrandCard from '@/components/card/BrandCard'
+export const dynamic = 'force-dynamic';
 import UpdateBrandForm from '@/components/forms/UpdateBrandForm'
 import { Context } from '@/components/helper/Context'
 import axios from 'axios'
