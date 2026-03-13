@@ -109,3 +109,63 @@ export async function DELETE(req) {
     }
     
 }
+
+
+export async function PATCH(req) {
+    try {
+        const formData = await req.formData();
+        const category_id = formData.get('category_id');
+        const name = formData.get('name');
+        const imageFile = formData.get('image');
+
+        if (!category_id || !name) {
+            return NextResponse.json({ success: false, message: "Missing required data" }, { status: 400 });
+        }
+
+        const slug = slugify(name, { strict: true, lower: true });
+
+        // 1. Get current image details
+        const currentData = await pool.query(`SELECT image, image_id FROM categories WHERE category_id=$1`, [category_id]);
+        if (currentData.rowCount === 0) {
+            return NextResponse.json({ success: false, message: "Category not found" }, { status: 404 });
+        }
+
+        let finalImageUrl = currentData.rows[0].image;
+        let finalImageId = currentData.rows[0].image_id;
+
+        // 2. If a new image is provided, replace the old one
+        if (imageFile && typeof imageFile !== 'string') {
+            // Delete old from Cloudinary if it exists
+            if (finalImageId) {
+                await cloudinary.uploader.destroy(finalImageId);
+            }
+
+            // Upload new
+            const buffer = Buffer.from(await imageFile.arrayBuffer());
+            const cloudImage = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: "ss-categories" },
+                    (err, result) => { if (err) reject(err); else resolve(result); }
+                );
+                stream.end(buffer);
+            });
+
+            finalImageUrl = cloudImage.secure_url;
+            finalImageId = cloudImage.public_id;
+        }
+
+        // 3. Update Database
+        const result = await pool.query(
+            `UPDATE categories SET name=$1, slug=$2, image=$3, image_id=$4 WHERE category_id=$5 RETURNING name`,
+            [name, slug, finalImageUrl, finalImageId, category_id]
+        );
+
+        return NextResponse.json({
+            success: true,
+            message: `Successfully updated ${result.rows[0].name}`
+        }, { status: 200 });
+
+    } catch (error) {
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+    }
+}
