@@ -182,3 +182,83 @@ export async function DELETE(req) {
     }
     
 }
+
+export async function PATCH(req) {
+    try {
+        const formData = await req.formData();
+        const product_id = formData.get('product_id');
+
+        if (!product_id) {
+            return NextResponse.json({ success: false, message: "Product ID is required" }, { status: 400 });
+        }
+
+        const currentData = await pool.query(`SELECT image, image_id FROM products WHERE product_id=$1`, [product_id]);
+        if (currentData.rowCount === 0) {
+            return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
+        }
+
+        const name = formData.get('name');
+        const slug = slugify(name, { strict: true, lower: true });
+        const description = formData.get('description');
+        const category_id = formData.get('category_id');
+        const brand_id = formData.get('brand_id') || null;
+        const barcode = formData.get('barcode');
+        const features = formData.get('features');
+        
+        const purchase_price = Number(formData.get('purchase_price')) || 0;
+        const sale_price = Number(formData.get('sale_price')) || 0;
+        const retail_price = Number(formData.get('retail_price')) || 0;
+        const dealer_price = Number(formData.get('dealer_price')) || 0;
+        const discount_price = Number(formData.get('discount_price')) || 0;
+        const wholesale_price = Number(formData.get('wholesale_price')) || 0;
+
+        const imageFile = formData.get('image');
+        let finalImageUrl = currentData.rows[0].image;
+        let finalImageId = currentData.rows[0].image_id;
+
+        if (imageFile && typeof imageFile !== 'string') {
+            if (finalImageId) {
+                await cloudinary.uploader.destroy(finalImageId);
+            }
+            const buffer = Buffer.from(await imageFile.arrayBuffer());
+            const cloudImage = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: "ss-products" },
+                    (err, result) => { if (err) reject(err); else resolve(result); }
+                );
+                stream.end(buffer);
+            });
+            finalImageUrl = cloudImage.secure_url;
+            finalImageId = cloudImage.public_id;
+        }
+
+        const featuresArr = typeof features === 'string' 
+            ? features.split(',').map(t => t.trim()).filter(t => t !== "") 
+            : [];
+
+        const query = `
+            UPDATE products SET 
+                name=$1, slug=$2, description=$3, features=$4, barcode=$5, 
+                purchase_price=$6, sale_price=$7, retail_price=$8, wholesale_price=$9, 
+                dealer_price=$10, discount_price=$11, category_id=$12, brand_id=$13, 
+                image=$14, image_id=$15
+            WHERE product_id=$16
+            RETURNING name;
+        `;
+
+        const values = [
+            name, slug, description, featuresArr, barcode,
+            purchase_price, sale_price, retail_price, wholesale_price,
+            dealer_price, discount_price, category_id, brand_id,
+            finalImageUrl, finalImageId, product_id
+        ];
+
+        await pool.query(query, values);
+
+        return NextResponse.json({ success: true, message: "Product updated successfully" });
+
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+    }
+}

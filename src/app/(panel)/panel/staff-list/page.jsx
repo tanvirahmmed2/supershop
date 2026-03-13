@@ -1,6 +1,7 @@
 'use client'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import {  MdDeleteOutline,t } from 'react-icons/md'
 
 const CategoryListPage = () => {
   const [staffs, setStaffs]=useState([])
@@ -10,6 +11,19 @@ const CategoryListPage = () => {
       setStaffs(res.data.payload)
     } catch (error) {
       console.log(error)
+      
+    }
+  }
+
+
+  const handleDelete=async(id)=>{
+    const confirm= window.confirm('Are you sure to delete the staff?')
+    if(!confirm) return 
+    try {
+      const res= await axios.delete('/api/staff', {data:{id}, withCredentials:true})
+      toast.success(res.data.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to delete staff")
       
     }
   }
@@ -35,7 +49,9 @@ const CategoryListPage = () => {
                 <p>{staff.role}</p>
                 <p>{staff.branch_name || 'Main'}</p>
                 <p>{staff.email}</p>
-                <button>Action</button>
+                  <button onClick={()=> handleDelete(staff.staff_id)} className='cursor-pointer'><MdDeleteOutline/></button>
+                 
+                
               </div>
             ))
           }

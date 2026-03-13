@@ -93,3 +93,45 @@ export async function DELETE(req) {
     }
     
 }
+
+export async function PATCH(req) {
+    try {
+        const body = await req.json();
+        const { supplier_id, name, phone, email, address, company_tin } = body;
+
+        if (!supplier_id || !name || !phone) {
+            return NextResponse.json({ 
+                success: false, 
+                message: "Supplier ID, Name, and Phone are required" 
+            }, { status: 400 });
+        }
+
+        const query = `
+            UPDATE suppliers 
+            SET name=$1, phone=$2, email=$3, address=$4, company_tin=$5 
+            WHERE supplier_id=$6 
+            RETURNING name;
+        `;
+
+        const values = [name, phone, email, address, company_tin, supplier_id];
+        const result = await pool.query(query, values);
+
+        if (result.rowCount === 0) {
+            return NextResponse.json({ 
+                success: false, 
+                message: "Supplier not found" 
+            }, { status: 404 });
+        }
+
+        return NextResponse.json({
+            success: true,
+            message: `Supplier ${result.rows[0].name} updated successfully`
+        }, { status: 200 });
+
+    } catch (error) {
+        return NextResponse.json({ 
+            success: false, 
+            message: error.message 
+        }, { status: 500 });
+    }
+}

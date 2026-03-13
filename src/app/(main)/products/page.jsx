@@ -34,7 +34,7 @@ const ProductsPage = () => {
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value)
-    setPage(1) // Reset to first page on category change
+    setPage(1) 
   }
 
   return (
