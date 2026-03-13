@@ -90,7 +90,7 @@ export const printSalesInvoice = (data) => {
           </p>
           <p style="margin: 10px 0; font-style: italic;">Thank you! Please visit again.</p>
           <div style="font-size: 8px; border-top: 1px solid #eee; padding-top: 5px;">
-            Software by Md. Monjurul Islam Bhuiyan
+            Software by Disibin
           </div>
         </div>
       </body>

@@ -120,7 +120,7 @@ export const printPurchaseInvoice = (purchase) => {
           </div>
 
           <div class="footer">
-            <p>This is an official purchase record for ${purchase.branch_name}.</p>
+            <p>This is an official purchase record for ${purchase.branch_name} By Disibin</p>
             <p>Printed on: ${new Date().toLocaleString()}</p>
           </div>
         </body>
