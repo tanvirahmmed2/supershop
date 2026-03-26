@@ -24,7 +24,7 @@ const Intro = () => {
     if (products.length === 0) return
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % products.length)
-    }, 7000)
+    }, 5000)
     return () => clearInterval(timer)
   }, [products])
 
@@ -41,6 +41,17 @@ const Intro = () => {
         <p>{products[index].description.slice(0, 50)}...</p>
         <p>BDT {products[index].sale_price - products[index].discount_price}</p>
         <Link href={`/products/${products[index].slug}`} className='px-6 bg-orange-400 text-white rounded-2xl p-1' >View</Link>
+        <div className='flex justify-center gap-3 mt-8'>
+                    {products.map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => setIndex(i)}
+                            className={`h-2 transition-all duration-300 rounded-full ${
+                                i === index ? 'w-8 bg-black' : 'w-2 bg-slate-300'
+                            }`}
+                        />
+                    ))}
+                </div>
       </div>
 
     </div>

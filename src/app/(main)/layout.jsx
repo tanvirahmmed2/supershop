@@ -10,7 +10,7 @@ export const metadata={
 
 const HomePageLayout = ({ children }) => {
     return (
-        <div className='w-full py-14 sm:py-0 sm:pt-20 px-1 sm:px-4 relative overflow-x-hidden'>
+        <div className='w-full py-14 md:py-0 md:pt-20 px-1  relative overflow-x-hidden'>
             <Navbar />
             <div className='w-full min-h-screen '>{children}</div>
             <Footer />
