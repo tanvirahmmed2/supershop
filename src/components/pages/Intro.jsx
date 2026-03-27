@@ -31,17 +31,17 @@ const Intro = () => {
   if (!products || products.length === 0) return
 
   return (
-    <div className=' w-full relative aspect-video overflow-hidden flex items-center justify-center'>
-      <div className='w-full aspect-video  overflow-hidden opacity-70'>
-        <Image src={products[index].image} alt='product image' width={1000} height={1000} className='w-full aspect-video object-cover overflow-hidden' />
+    <div className=' w-full relative h-screen overflow-hidden flex items-center justify-center'>
+      <div className='w-full h-screen  overflow-hidden opacity-70'>
+        <Image src={products[index].image} alt='product image' width={1000} height={1000} className='w-full h-screen object-cover overflow-hidden' />
       </div>
-      <div className='w-full aspect-video absolute top-0 backdrop-blur-xs bg-black/40 flex flex-col items-center justify-center gap-2 text-white'>
-        <p className='font-black uppercase'>TOP sales</p>
-        <h1 className='text-center text-base md:text-2xl font-semibold'>{products[index].name.slice(0,100)}...</h1>
+      <div className='w-full h-screen absolute top-0 backdrop-blur-xs bg-black/20 flex flex-col items-center justify-center gap-4 text-white'>
+        <p className='font-black uppercase text-orange-400 border-b w-full text-center'>TOP sales</p>
+        <h1 className='text-center text-base md:text-2xl font-black'>{products[index].name.slice(0,100)}...</h1>
         <p className='text-xs md:text-base'>{products[index].description.slice(0, 50)}...</p>
         <p>BDT {products[index].sale_price - products[index].discount_price}</p>
         <Link href={`/products/${products[index].slug}`} className='px-6 bg-orange-400 text-white rounded-2xl p-1' >View</Link>
-        <div className='flex justify-center gap-3 mt-8'>
+        <div className='flex justify-center gap-2 py-4'>
           {products.map((_, i) => (
             <button
               key={i}
